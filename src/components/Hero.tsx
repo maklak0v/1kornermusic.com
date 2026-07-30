@@ -126,8 +126,8 @@ export function Hero() {
         transition={{ duration: 1, delay: 3 }}
         className="absolute left-5 top-24 hidden sm:block sm:left-8"
       >
-        <p className="font-nemoy-thin text-[9px] uppercase tracking-ultra text-ash">
-          REC · 2026
+        <p className="font-nemoy-thin text-[20px] uppercase tracking-ultra text-ash">
+          ph: @albanski.vids
         </p>
       </motion.div>
       <motion.div
@@ -136,8 +136,8 @@ export function Hero() {
         transition={{ duration: 1, delay: 3.1 }}
         className="absolute right-5 top-24 hidden text-right sm:block sm:right-8"
       >
-        <p className="font-nemoy-thin text-[9px] uppercase tracking-ultra text-ash">
-          LOS ANGELES
+        <p className="font-nemoy-thin text-[20px] uppercase tracking-ultra text-ash">
+          DTLA
         </p>
       </motion.div>
 
