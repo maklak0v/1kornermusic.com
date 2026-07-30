@@ -5,6 +5,7 @@ import { useScrolled } from '@/hooks/useUi';
 import { SoundControl } from '@/components/SoundControl';
 
 const NAV = [
+  { label: 'STORY', href: '#story' },
   { label: 'MUSIC', href: '#music' },
   { label: 'MERCH', href: '#merch' },
   { label: 'PHOTOS', href: '#photos' },
