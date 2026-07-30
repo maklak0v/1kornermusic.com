@@ -235,7 +235,7 @@ function ReleaseShowcase({
   return (
     <div
       ref={cardRef}
-      className="relative min-h-[100svh] w-full overflow-hidden border-t border-bone/5"
+      className="relative min-h-[100svh] w-full overflow-hidden"
     >
       {/* Backdrop */}
       <motion.div
