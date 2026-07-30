@@ -63,9 +63,12 @@ const storyScale = useTransform(
   };
 
   return (
-    <section ref={sectionRef} id="music" className="relative bg-ink">
+    <section ref={sectionRef} className="relative bg-ink">
       {/* 01 — STORY */}
-      <div className="relative mx-auto flex min-h-[85svh] max-w-[1600px] flex-col px-5 pt-28 sm:px-8 sm:pt-36">
+      <div
+  id="story"
+  className="relative mx-auto flex min-h-[85svh] max-w-[1600px] scroll-mt-24 flex-col px-5 pt-28 sm:px-8 sm:pt-36"
+>
         <SectionLabel index="01" title="STORY" />
 
         <div className="flex flex-1 items-center justify-center py-20 sm:py-28">
@@ -105,7 +108,10 @@ const storyScale = useTransform(
       </div>
 
       {/* 02 — LATEST TRANSMISSION */}
-      <div className="relative mx-auto max-w-[1600px] px-5 pt-12 sm:px-8 sm:pt-20">
+     <div
+  id="music"
+  className="relative mx-auto max-w-[1600px] scroll-mt-24 px-5 pt-12 sm:px-8 sm:pt-20"
+>
         <SectionLabel index="02" title="LATEST TRANSMISSION" />
 
         <FadeIn delay={0.1}>
