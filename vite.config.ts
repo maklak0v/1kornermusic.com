@@ -3,8 +3,8 @@ import react from '@vitejs/plugin-react';
 import { fileURLToPath, URL } from 'node:url';
 
 export default defineConfig(() => ({
-  // GitHub project pages live at /kornermusic.com/. Vercel/custom-domain builds stay at /.
-  base: process.env.GITHUB_PAGES === 'true' ? '/kornermusic.com/' : '/',
+  // GitHub project pages live at /1kornermusic.com/. Vercel/custom-domain builds stay at /.
+  base: process.env.GITHUB_PAGES === 'true' ? '/1kornermusic.com/' : '/',
   plugins: [react()],
   resolve: {
     alias: {
