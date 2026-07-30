@@ -44,41 +44,39 @@ export function Header() {
         }}
         className={`fixed left-0 right-0 top-0 z-[100] transition-all duration-700 ${
           scrolled
-            ? 'border-b border-bone/10 bg-ink/80 backdrop-blur-xl'
-            : 'bg-gradient-to-b from-ink/70 to-transparent'
+            ? 'border-b border-bone/10 bg-ink/82 backdrop-blur-xl'
+            : 'bg-gradient-to-b from-ink/75 to-transparent'
         }`}
       >
-        <div className="mx-auto flex max-w-[1600px] items-center justify-between px-5 py-5 sm:px-8 lg:px-10">
+        <div className="mx-auto flex max-w-[1600px] items-center justify-between px-6 py-5 sm:px-8 lg:px-10">
           {/* Left */}
-          <div className="flex min-w-0 items-center gap-6">
+          <div className="flex min-w-0 items-center gap-7">
             <a
               href="#top"
               onClick={(event) => {
                 event.preventDefault();
                 window.scrollTo({ top: 0, behavior: 'smooth' });
               }}
-              className="shrink-0 font-nemoy-med text-base uppercase tracking-[0.32em] text-bone transition-opacity hover:opacity-70 sm:text-lg"
+              className="shrink-0 font-nemoy-med text-[15px] uppercase tracking-[0.34em] text-bone transition-opacity hover:opacity-75 sm:text-[17px] lg:text-[18px]"
             >
               KORNER
             </a>
 
             <div className="hidden items-center gap-4 xl:flex">
-              <span className="h-px w-7 bg-bone/20" />
-
+              <span className="h-px w-8 bg-bone/20" />
               <div className="flex flex-col leading-none">
-                <span className="font-nemoy-thin text-[9px] uppercase tracking-[0.28em] text-bone/65">
+                <span className="font-nemoy-thin text-[10px] uppercase tracking-[0.28em] text-bone/75">
                   LOS ANGELES
                 </span>
-
-                <span className="mt-1 font-nemoy-thin text-[8px] uppercase tracking-[0.3em] text-ash">
+                <span className="mt-1.5 font-nemoy-thin text-[9px] uppercase tracking-[0.3em] text-ash">
                   DEC 2026
                 </span>
               </div>
             </div>
           </div>
 
-          {/* Center desktop nav */}
-          <nav className="hidden items-center gap-9 md:flex lg:gap-12">
+          {/* Center nav */}
+          <nav className="hidden items-center gap-10 md:flex lg:gap-12">
             {NAV.map((item) => (
               <a
                 key={item.label}
@@ -87,7 +85,7 @@ export function Header() {
                   event.preventDefault();
                   handleNav(item.href);
                 }}
-                className="relative py-2 font-nemoy-thin text-[13px] uppercase tracking-[0.26em] text-bone/75 transition-colors duration-300 after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:bg-bone after:transition-all after:duration-300 hover:text-bone hover:after:w-full lg:text-sm"
+                className="relative py-2 font-nemoy-thin text-[13px] uppercase tracking-[0.26em] text-bone/78 transition-colors duration-300 after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:bg-bone after:transition-all after:duration-300 hover:text-bone hover:after:w-full lg:text-[14px]"
               >
                 {item.label}
               </a>
@@ -95,13 +93,12 @@ export function Header() {
           </nav>
 
           {/* Right */}
-          <div className="flex items-center gap-4 sm:gap-6">
+          <div className="flex items-center gap-5 sm:gap-6">
             <div className="hidden flex-col items-end leading-none lg:flex">
-              <span className="font-nemoy-thin text-[11px] uppercase tracking-[0.22em] text-bone/80">
+              <span className="font-nemoy-thin text-[12px] uppercase tracking-[0.2em] text-bone/85">
                 {localTime.time}
               </span>
-
-              <span className="mt-1 font-nemoy-thin text-[8px] uppercase tracking-[0.28em] text-ash">
+              <span className="mt-1.5 font-nemoy-thin text-[9px] uppercase tracking-[0.28em] text-ash">
                 {localTime.timeZone}
               </span>
             </div>
@@ -163,14 +160,12 @@ function MobileMenu({
           transition={{ duration: 0.35 }}
           className="fixed inset-0 z-[200] flex flex-col bg-ink md:hidden"
         >
-          {/* Top bar */}
           <div className="flex items-center justify-between border-b border-bone/10 px-5 py-5">
             <div className="flex flex-col">
-              <span className="font-nemoy-thin text-xs uppercase tracking-[0.22em] text-bone/80">
+              <span className="font-nemoy-thin text-[13px] uppercase tracking-[0.2em] text-bone/85">
                 {localTime.time}
               </span>
-
-              <span className="mt-1 font-nemoy-thin text-[8px] uppercase tracking-[0.28em] text-ash">
+              <span className="mt-1.5 font-nemoy-thin text-[9px] uppercase tracking-[0.28em] text-ash">
                 {localTime.timeZone}
               </span>
             </div>
@@ -189,7 +184,6 @@ function MobileMenu({
             </button>
           </div>
 
-          {/* Navigation */}
           <nav className="flex flex-1 flex-col justify-center gap-2 px-5">
             {items.map((item, index) => (
               <motion.a
@@ -223,20 +217,18 @@ function MobileMenu({
             ))}
           </nav>
 
-          {/* Footer */}
           <div className="border-t border-bone/10 px-5 py-6">
             <div className="flex items-end justify-between gap-6">
               <div>
-                <p className="font-nemoy-thin text-[10px] uppercase tracking-[0.26em] text-bone/65">
+                <p className="font-nemoy-thin text-[11px] uppercase tracking-[0.26em] text-bone/7 0">
                   LOS ANGELES
                 </p>
-
                 <p className="mt-2 font-nemoy-thin text-[9px] uppercase tracking-[0.28em] text-ash">
                   DEC 2026
                 </p>
               </div>
 
-              <p className="text-right font-nemoy-thin text-[8px] uppercase tracking-[0.24em] text-ash">
+              <p className="text-right font-nemoy-thin text-[9px] uppercase tracking-[0.24em] text-ash">
                 local time
                 <br />
                 {localTime.timeZone}
@@ -279,7 +271,6 @@ function useVisitorTime(): VisitorTime {
     };
 
     updateTime();
-
     const interval = window.setInterval(updateTime, 1000);
 
     return () => {
