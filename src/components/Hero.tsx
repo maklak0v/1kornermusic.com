@@ -83,7 +83,7 @@ export function Hero() {
           initial={reduced ? { opacity: 1 } : { opacity: 0, y: 20 }}
           animate={reduced ? {} : { opacity: 1, y: 0 }}
           transition={{ duration: 1.2, delay: 1.6, ease: [0.16, 1, 0.3, 1] }}
-          className="font-nemoy-thin text-[11px] uppercase tracking-extreme text-bone/70 sm:text-xs"
+          className="font-nemoy-thin text-[21px] uppercase tracking-extreme text-bone/70 sm:text-xs"
         >
           DJ · PRODUCER · ARTIST · FILMMAKER
         </motion.p>
@@ -91,7 +91,7 @@ export function Hero() {
           initial={reduced ? { opacity: 1 } : { opacity: 0 }}
           animate={reduced ? {} : { opacity: 1 }}
           transition={{ duration: 1.5, delay: 2.2, ease: [0.16, 1, 0.3, 1] }}
-          className="mt-4 font-nemoy-thin text-sm tracking-wide text-bone/50 sm:text-base"
+          className="mt-4 font-nemoy-thin text-[21px] tracking-wide text-bone/50 sm:text-base"
         >
           music for the moments that stay with you.
         </motion.p>
