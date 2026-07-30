@@ -1,7 +1,6 @@
 import { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useReducedMotion } from '@/hooks/useUi';
-
 import { asset } from '@/lib/assets';
 
 const HERO_IMG = asset('/images/DSC00368-Edit-Edit_2.webp');
@@ -9,6 +8,7 @@ const HERO_IMG = asset('/images/DSC00368-Edit-Edit_2.webp');
 export function Hero() {
   const ref = useRef<HTMLElement>(null);
   const reduced = useReducedMotion();
+
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ['start start', 'end start'],
@@ -41,57 +41,107 @@ export function Hero() {
           className="h-full w-full object-cover object-center opacity-70"
           initial={reduced ? { opacity: 0.7 } : { opacity: 0, scale: 1.15 }}
           animate={reduced ? {} : { opacity: 0.7, scale: 1.05 }}
-          transition={{ duration: 2.4, ease: [0.16, 1, 0.3, 1] }}
+          transition={{
+            duration: 2.4,
+            ease: [0.16, 1, 0.3, 1],
+          }}
         />
+
         <div className="absolute inset-0 bg-gradient-to-b from-ink/40 via-transparent to-ink" />
         <div className="absolute inset-0 bg-gradient-to-r from-ink/60 via-transparent to-ink/40" />
       </motion.div>
 
-      {/* Giant KORNER text — behind / overlapping the image */}
+      {/* Giant KORNER title */}
       <motion.div
         style={reduced ? {} : { y: textY, opacity: textOpacity }}
         className="absolute inset-0 flex items-center justify-center"
       >
         <motion.h1
-          style={reduced ? {} : { filter: `blur(${lettersBlur}px)`, scale: lettersScale }}
-          className="font-nemoy-thin text-[26vw] leading-[0.85] tracking-tight text-bone/90 select-none sm:text-[22vw] md:text-[20vw]"
+          style={
+            reduced
+              ? {}
+              : {
+                  filter: `blur(${lettersBlur}px)`,
+                  scale: lettersScale,
+                }
+          }
+          className="select-none font-nemoy-thin text-[26vw] leading-[0.85] tracking-tight text-bone/90 sm:text-[22vw] md:text-[20vw]"
           aria-label="KORNER"
         >
           <span className="flex">
-            {letters.map((ch, i) => (
+            {letters.map((character, index) => (
               <motion.span
-                key={i}
-                initial={reduced ? { opacity: 1 } : { opacity: 0, y: 60 }}
-                animate={reduced ? {} : { opacity: 1, y: 0 }}
-                transition={{ duration: 1.4, delay: 0.3 + i * 0.08, ease: [0.16, 1, 0.3, 1] }}
+                key={`${character}-${index}`}
+                initial={
+                  reduced
+                    ? { opacity: 1 }
+                    : { opacity: 0, y: 60 }
+                }
+                animate={
+                  reduced
+                    ? {}
+                    : { opacity: 1, y: 0 }
+                }
+                transition={{
+                  duration: 1.4,
+                  delay: 0.3 + index * 0.08,
+                  ease: [0.16, 1, 0.3, 1],
+                }}
                 className="inline-block"
-                style={{ textShadow: '0 0 80px rgba(5,5,5,0.8)' }}
+                style={{
+                  textShadow: '0 0 80px rgba(5,5,5,0.8)',
+                }}
               >
-                {ch}
+                {character}
               </motion.span>
             ))}
           </span>
         </motion.h1>
       </motion.div>
 
-      {/* Foreground subtitle block */}
+      {/* Foreground subtitle */}
       <motion.div
         style={reduced ? {} : { opacity: textOpacity }}
-        className="absolute inset-0 flex flex-col items-center justify-end pb-[14vh] sm:pb-[16vh]"
+        className="absolute inset-0 flex flex-col items-center justify-end px-5 pb-[15vh] text-center sm:pb-[17vh]"
       >
         <motion.p
-          initial={reduced ? { opacity: 1 } : { opacity: 0, y: 20 }}
-          animate={reduced ? {} : { opacity: 1, y: 0 }}
-          transition={{ duration: 1.2, delay: 1.6, ease: [0.16, 1, 0.3, 1] }}
-          className="font-nemoy-thin text-[21px] uppercase tracking-extreme text-bone/70 sm:text-xs"
+          initial={
+            reduced
+              ? { opacity: 1 }
+              : { opacity: 0, y: 20 }
+          }
+          animate={
+            reduced
+              ? {}
+              : { opacity: 1, y: 0 }
+          }
+          transition={{
+            duration: 1.2,
+            delay: 1.6,
+            ease: [0.16, 1, 0.3, 1],
+          }}
+          className="font-nemoy-thin text-[16px] uppercase tracking-[0.34em] text-bone/85 sm:text-[18px] md:text-[20px]"
         >
           DJ · PRODUCER · ARTIST · FILMMAKER
         </motion.p>
+
         <motion.p
-          initial={reduced ? { opacity: 1 } : { opacity: 0 }}
-          animate={reduced ? {} : { opacity: 1 }}
-          transition={{ duration: 1.5, delay: 2.2, ease: [0.16, 1, 0.3, 1] }}
-          className="mt-4 font-nemoy-thin text-[21px] tracking-wide text-bone/50 sm:text-base"
+          initial={
+            reduced
+              ? { opacity: 1 }
+              : { opacity: 0 }
+          }
+          animate={
+            reduced
+              ? {}
+              : { opacity: 1 }
+          }
+          transition={{
+            duration: 1.5,
+            delay: 2.2,
+            ease: [0.16, 1, 0.3, 1],
+          }}
+          className="mt-5 font-nemoy-thin text-[15px] tracking-[0.08em] text-bone/65 sm:text-[17px] md:text-[19px]"
         >
           music for the moments that stay with you.
         </motion.p>
@@ -100,48 +150,91 @@ export function Hero() {
       {/* Scroll indicator */}
       <motion.div
         style={reduced ? {} : { opacity: textOpacity }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
+        className="absolute bottom-7 left-1/2 -translate-x-1/2"
       >
         <motion.div
-          initial={reduced ? { opacity: 1 } : { opacity: 0 }}
-          animate={reduced ? {} : { opacity: 1 }}
-          transition={{ duration: 1, delay: 2.8 }}
-          className="flex flex-col items-center gap-2"
+          initial={
+            reduced
+              ? { opacity: 1 }
+              : { opacity: 0 }
+          }
+          animate={
+            reduced
+              ? {}
+              : { opacity: 1 }
+          }
+          transition={{
+            duration: 1,
+            delay: 2.8,
+          }}
+          className="flex flex-col items-center gap-3"
         >
-          <span className="font-nemoy-thin text-[10px] uppercase tracking-ultra text-bone/40">
+          <span className="font-nemoy-thin text-[12px] uppercase tracking-[0.3em] text-bone/55 sm:text-[13px]">
             scroll to enter
           </span>
+
           <motion.div
-            animate={reduced ? {} : { y: [0, 8, 0] }}
-            transition={{ duration: 2.4, repeat: Infinity, ease: 'easeInOut' }}
-            className="h-8 w-px bg-gradient-to-b from-bone/40 to-transparent"
+            animate={
+              reduced
+                ? {}
+                : { y: [0, 8, 0] }
+            }
+            transition={{
+              duration: 2.4,
+              repeat: Infinity,
+              ease: 'easeInOut',
+            }}
+            className="h-9 w-px bg-gradient-to-b from-bone/50 to-transparent"
           />
         </motion.div>
       </motion.div>
 
       {/* Corner metadata */}
       <motion.div
-        initial={reduced ? { opacity: 1 } : { opacity: 0 }}
-        animate={reduced ? {} : { opacity: 1 }}
-        transition={{ duration: 1, delay: 3 }}
-        className="absolute left-5 top-24 hidden sm:block sm:left-8"
+        initial={
+          reduced
+            ? { opacity: 1 }
+            : { opacity: 0 }
+        }
+        animate={
+          reduced
+            ? {}
+            : { opacity: 1 }
+        }
+        transition={{
+          duration: 1,
+          delay: 3,
+        }}
+        className="absolute left-5 top-24 hidden sm:left-8 sm:block"
       >
         <p className="font-nemoy-thin text-[15px] uppercase tracking-ultra text-ash">
           DTLA
         </p>
       </motion.div>
+
       <motion.div
-        initial={reduced ? { opacity: 1 } : { opacity: 0 }}
-        animate={reduced ? {} : { opacity: 1 }}
-        transition={{ duration: 1, delay: 3.1 }}
-        className="absolute right-5 top-24 hidden text-right sm:block sm:right-8"
+        initial={
+          reduced
+            ? { opacity: 1 }
+            : { opacity: 0 }
+        }
+        animate={
+          reduced
+            ? {}
+            : { opacity: 1 }
+        }
+        transition={{
+          duration: 1,
+          delay: 3.1,
+        }}
+        className="absolute right-5 top-24 hidden text-right sm:right-8 sm:block"
       >
         <p className="font-nemoy-thin text-[15px] uppercase tracking-ultra text-ash">
-        ph: @albanski.vids
+          ph: @albanski.vids
         </p>
       </motion.div>
 
-      {/* Scroll fade to black at the bottom */}
+      {/* Bottom fade */}
       <motion.div
         style={{ opacity: overlayOpacity }}
         className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-ink to-transparent"
