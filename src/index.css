@@ -1,0 +1,176 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ============================================================
+   KORNER — NEMOY FONT SYSTEM
+   Place licensed woff2 files in /public/fonts/
+   ============================================================ */
+:root {
+  --font-nemoy-thin: 'Nemoy Thin';
+  --font-nemoy-medium: 'Nemoy Medium';
+  --font-nemoy-black: 'Nemoy Black';
+  --font-fallback: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+@font-face {
+  font-family: 'Nemoy Thin';
+  src: url('/fonts/Nemoy-Thin.woff2') format('woff2');
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Nemoy Medium';
+  src: url('/fonts/Nemoy-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Nemoy Black';
+  src: url('/fonts/Nemoy-Black.woff2') format('woff2');
+  font-weight: 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ============================================================
+   BASE
+   ============================================================ */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  background: #050505;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: #050505;
+  color: #e8e4dc;
+  font-family: var(--font-fallback);
+  overflow-x: hidden;
+}
+
+::selection {
+  background: rgba(122, 31, 31, 0.5);
+  color: #f4f1ea;
+}
+
+/* Hide default cursor on desktop where custom cursor is active */
+@media (hover: hover) and (pointer: fine) {
+  body.has-custom-cursor,
+  body.has-custom-cursor * {
+    cursor: none !important;
+  }
+}
+
+/* ============================================================
+   SCROLLBAR
+   ============================================================ */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #050505;
+}
+::-webkit-scrollbar-thumb {
+  background: #1f1f24;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #524f4a;
+}
+
+/* ============================================================
+   FILM GRAIN OVERLAY
+   ============================================================ */
+.grain-layer {
+  position: fixed;
+  inset: -150%;
+  width: 400%;
+  height: 400%;
+  pointer-events: none;
+  z-index: 9998;
+  opacity: 0.06;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  animation: grain 0.6s steps(4) infinite;
+}
+@keyframes grain {
+  0%, 100% { transform: translate(0, 0); }
+  25% { transform: translate(-2%, -3%); }
+  50% { transform: translate(-1%, 2%); }
+  75% { transform: translate(2%, -1%); }
+}
+
+/* Vignette */
+.vignette::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(5,5,5,0.7) 100%);
+}
+
+/* ============================================================
+   TEXT EFFECTS
+   ============================================================ */
+.text-stroke-bone {
+  -webkit-text-stroke: 1px rgba(232, 228, 220, 0.5);
+  color: transparent;
+}
+.text-stroke-thin {
+  -webkit-text-stroke: 1px rgba(232, 228, 220, 0.2);
+  color: transparent;
+}
+
+/* Masked text reveal */
+.mask-reveal {
+  clip-path: inset(0 100% 0 0);
+}
+
+/* ============================================================
+   ANALOG TEXTURE
+   ============================================================ */
+.scanlines {
+  background-image: repeating-linear-gradient(
+    0deg,
+    rgba(0,0,0,0.08),
+    rgba(0,0,0,0.08) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+}
+
+.timestamp {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ============================================================
+   FOCUS STATES (accessibility)
+   ============================================================ */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible {
+  outline: 1px solid rgba(232, 228, 220, 0.6);
+  outline-offset: 3px;
+}
+
+/* ============================================================
+   REDUCED MOTION
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .grain-layer { animation: none !important; }
+  html { scroll-behavior: auto; }
+}
