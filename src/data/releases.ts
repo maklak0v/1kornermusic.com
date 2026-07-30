@@ -39,7 +39,7 @@ export const releases: Release[] = [
     releaseDate: '2026.01.18',
     featured: true,
     previewAudio:
-      'https://cdn.pixabay.com/audio/2022/10/30/audio_347111d654.mp3',
+      asset('/audio/ikon-preview.mp3'),
     visualizerUrl: '#video',
     streaming: [
       {
