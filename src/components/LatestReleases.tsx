@@ -31,25 +31,25 @@ export function LatestReleases() {
   const storyY = useTransform(
   scrollYProgress,
   [0.02, 0.18, 0.34],
-  [80, 0, -55],
+  [45, 0, -30],
 );
 
 const storyOpacity = useTransform(
   scrollYProgress,
-  [0.01, 0.12, 0.3, 0.42],
-  [0, 1, 1, 0.15],
+  [0.01, 0.12, 0.34, 0.46],
+  [0, 1, 1, 0.7],
 );
 
 const storyBlur = useTransform(
   scrollYProgress,
-  [0.01, 0.14, 0.34],
-  ['blur(12px)', 'blur(0px)', 'blur(3px)'],
+  [0.01, 0.12, 0.3],
+  ['blur(6px)', 'blur(0px)', 'blur(0px)'],
 );
 
 const storyScale = useTransform(
   scrollYProgress,
   [0.02, 0.18, 0.34],
-  [0.96, 1, 1.02],
+  [0.98, 1, 1],
 );
 
   const onListenEnter = () => {
@@ -71,7 +71,7 @@ const storyScale = useTransform(
         <div className="flex flex-1 items-center justify-center py-20 sm:py-28">
           <FadeIn delay={0.1}>
             <div className="mx-auto max-w-4xl text-center">
-              <motion.div
+   <motion.div
   style={
     reduced
       ? {}
@@ -84,13 +84,19 @@ const storyScale = useTransform(
   }
   className="mx-auto max-w-4xl text-center"
 >
-  <p className="font-nemoy-thin text-lg leading-[2.15] tracking-[0.08em] text-bone/65 sm:text-xl md:text-2xl">
+  <p className="font-nemoy-thin text-xl leading-[2] tracking-[0.07em] text-bone/75 sm:text-2xl md:text-[1.65rem]">
     KORNER is an artist from Ukraine, creating music since the age
     of sixteen. For years, the tracks remained private — unfinished
     files, late nights and memories that never left the room. Then,
     after eight years, something from the past returned and changed
     the direction of everything. KORNER is about stories, people
     and the moments that stay with us.
+  </p>
+
+  <div className="mx-auto mt-10 h-px w-20 bg-bone/20" />
+
+  <p className="mt-4 font-nemoy-thin text-[9px] uppercase tracking-ultra text-ash">
+    chapter 01 · the beginning
   </p>
 </motion.div>
             </div>
