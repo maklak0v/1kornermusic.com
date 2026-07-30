@@ -122,7 +122,7 @@ const storyScale = useTransform(
       </div>
 
       {/* Release showcase */}
-      <div className="relative mt-16 sm:mt-24">
+      <div className="relative mt-6 sm:mt-10">
         {releases.map((release, idx) => (
           <ReleaseShowcase
             key={release.id}
@@ -235,7 +235,7 @@ function ReleaseShowcase({
   return (
     <div
       ref={cardRef}
-      className="relative min-h-[100svh] w-full overflow-hidden"
+      className="relative min-h-[75svh] w-full overflow-hidden"
     >
       {/* Backdrop */}
       <motion.div
@@ -261,7 +261,7 @@ function ReleaseShowcase({
       </motion.div>
 
       {/* Content */}
-      <div className="relative mx-auto flex min-h-[100svh] max-w-[1600px] flex-col items-center justify-center gap-10 px-5 py-20 sm:px-8 lg:flex-row lg:gap-16">
+      <div className="relative mx-auto flex min-h-[75svh] max-w-[1600px] flex-col items-center justify-start gap-10 px-5 pb-20 pt-10 sm:px-8 sm:pt-14 lg:flex-row lg:justify-center lg:gap-16">
         {/* Artwork */}
         <motion.div
           style={
