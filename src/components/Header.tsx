@@ -1,7 +1,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
-import { useState } from 'react';
-import { useScrolled, useLosAngelesTime } from '@/hooks/useUi';
+import { useEffect, useMemo, useState } from 'react';
+import { useScrolled } from '@/hooks/useUi';
 import { SoundControl } from '@/components/SoundControl';
 
 const NAV = [
@@ -14,7 +14,7 @@ const NAV = [
 
 export function Header() {
   const scrolled = useScrolled(60);
-  const laTime = useLosAngelesTime();
+  const localTime = useVisitorTime();
   const [menuOpen, setMenuOpen] = useState(false);
 
   const handleNav = (href: string) => {
@@ -26,8 +26,8 @@ export function Header() {
     }
 
     if (href.startsWith('#')) {
-      const el = document.querySelector(href);
-      el?.scrollIntoView({ behavior: 'smooth' });
+      const element = document.querySelector(href);
+      element?.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
@@ -36,54 +36,65 @@ export function Header() {
       <motion.header
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 1, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+        transition={{
+          duration: 1,
+          delay: 0.4,
+          ease: [0.16, 1, 0.3, 1],
+        }}
         className={`fixed left-0 right-0 top-0 z-[100] transition-all duration-700 ${
           scrolled
-            ? 'border-b border-bone/8 bg-ink/70 backdrop-blur-md'
+            ? 'border-b border-bone/10 bg-ink/75 backdrop-blur-md'
             : 'bg-transparent'
         }`}
       >
         <div className="mx-auto flex max-w-[1600px] items-center justify-between px-6 py-5 sm:px-8 lg:px-10">
-          {/* Left: logo only */}
+          {/* Logo */}
           <a
             href="#top"
-            onClick={(e) => {
-              e.preventDefault();
+            onClick={(event) => {
+              event.preventDefault();
               window.scrollTo({ top: 0, behavior: 'smooth' });
             }}
-            className="font-nemoy-med text-[15px] uppercase tracking-[0.28em] text-bone sm:text-[17px] lg:text-[18px]"
+            className="font-nemoy-med text-[17px] uppercase tracking-[0.28em] text-bone sm:text-[18px] lg:text-[19px]"
           >
             KORNER
           </a>
 
-          {/* Center: nav */}
-          <nav className="hidden items-center gap-8 lg:flex xl:gap-10">
+          {/* Desktop navigation */}
+          <nav className="hidden items-center gap-9 lg:flex xl:gap-11">
             {NAV.map((item) => (
               <a
                 key={item.label}
                 href={item.href}
-                onClick={(e) => {
-                  e.preventDefault();
+                onClick={(event) => {
+                  event.preventDefault();
                   handleNav(item.href);
                 }}
-                className="font-nemoy-thin text-[13px] uppercase tracking-[0.24em] text-bone/80 transition-colors duration-300 hover:text-bone xl:text-[14px]"
+                className="font-nemoy-thin text-[14px] uppercase tracking-[0.22em] text-bone/80 transition-colors duration-300 hover:text-bone xl:text-[15px]"
               >
                 {item.label}
               </a>
             ))}
           </nav>
 
-          {/* Right: time + sound + mobile menu */}
-          <div className="flex items-center gap-4 sm:gap-5 lg:gap-6">
-            <span className="timestamp hidden font-nemoy-thin text-[13px] uppercase tracking-[0.18em] text-bone/80 lg:inline xl:text-[14px]">
-              {laTime}
-            </span>
+          {/* Time, sound and mobile menu */}
+          <div className="flex items-center gap-5 lg:gap-7">
+            <div className="hidden items-center gap-2 lg:flex">
+              <span className="font-nemoy-thin text-[14px] uppercase tracking-[0.14em] text-bone/85 xl:text-[15px]">
+                {localTime.time}
+              </span>
 
-            <div className="hidden sm:flex items-center">
+              <span className="font-nemoy-thin text-[11px] uppercase tracking-[0.16em] text-bone/50">
+                {localTime.timeZone}
+              </span>
+            </div>
+
+            <div className="hidden items-center sm:flex">
               <SoundControl />
             </div>
 
             <button
+              type="button"
               onClick={() => setMenuOpen(true)}
               className="flex items-center text-bone/80 transition-colors hover:text-bone lg:hidden"
               aria-label="Open menu"
@@ -98,7 +109,7 @@ export function Header() {
         open={menuOpen}
         onClose={() => setMenuOpen(false)}
         onNav={handleNav}
-        laTime={laTime}
+        localTime={localTime}
       />
     </>
   );
@@ -108,14 +119,18 @@ function MobileMenu({
   open,
   onClose,
   onNav,
-  laTime,
+  localTime,
 }: {
   open: boolean;
   onClose: () => void;
   onNav: (href: string) => void;
-  laTime: string;
+  localTime: VisitorTime;
 }) {
-  const items: { label: string; href: string; big?: boolean }[] = [
+  const items: {
+    label: string;
+    href: string;
+    big?: boolean;
+  }[] = [
     { label: 'KORNER', href: '#top', big: true },
     ...NAV,
     { label: 'INSTAGRAM', href: 'https://instagram.com' },
@@ -134,17 +149,24 @@ function MobileMenu({
           transition={{ duration: 0.35 }}
           className="fixed inset-0 z-[200] flex flex-col bg-ink lg:hidden"
         >
-          {/* top bar */}
+          {/* Mobile top bar */}
           <div className="flex items-center justify-between px-6 py-5">
-            <span className="timestamp font-nemoy-thin text-[13px] uppercase tracking-[0.18em] text-bone/80">
-              {laTime}
-            </span>
+            <div className="flex items-center gap-2">
+              <span className="font-nemoy-thin text-[14px] uppercase tracking-[0.14em] text-bone/85">
+                {localTime.time}
+              </span>
+
+              <span className="font-nemoy-thin text-[10px] uppercase tracking-[0.16em] text-bone/50">
+                {localTime.timeZone}
+              </span>
+            </div>
 
             <div className="block sm:hidden">
               <SoundControl />
             </div>
 
             <button
+              type="button"
               onClick={onClose}
               className="text-bone/80 transition-colors hover:text-bone"
               aria-label="Close menu"
@@ -153,17 +175,21 @@ function MobileMenu({
             </button>
           </div>
 
-          {/* nav list */}
+          {/* Mobile navigation */}
           <nav className="flex flex-1 flex-col justify-center gap-2 px-6">
-            {items.map((item, i) => (
+            {items.map((item, index) => (
               <motion.a
-                key={item.label}
+                key={`${item.label}-${item.href}`}
                 href={item.href}
                 target={item.href.startsWith('http') ? '_blank' : undefined}
-                rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                onClick={(e) => {
+                rel={
+                  item.href.startsWith('http')
+                    ? 'noopener noreferrer'
+                    : undefined
+                }
+                onClick={(event) => {
                   if (item.href.startsWith('#')) {
-                    e.preventDefault();
+                    event.preventDefault();
                     onNav(item.href);
                   }
                 }}
@@ -171,7 +197,7 @@ function MobileMenu({
                 animate={{ opacity: 1, y: 0 }}
                 transition={{
                   duration: 0.55,
-                  delay: 0.08 + i * 0.05,
+                  delay: 0.08 + index * 0.05,
                   ease: [0.16, 1, 0.3, 1],
                 }}
                 className={`font-nemoy-thin uppercase tracking-[0.2em] text-bone transition-colors hover:text-ember ${
@@ -186,4 +212,60 @@ function MobileMenu({
       )}
     </AnimatePresence>
   );
+}
+
+interface VisitorTime {
+  time: string;
+  timeZone: string;
+}
+
+function useVisitorTime(): VisitorTime {
+  const visitorTimeZone = useMemo(() => {
+    try {
+      return Intl.DateTimeFormat().resolvedOptions().timeZone;
+    } catch {
+      return 'UTC';
+    }
+  }, []);
+
+  const [time, setTime] = useState('--:--');
+  const [timeZone, setTimeZone] = useState('');
+
+  useEffect(() => {
+    const updateTime = () => {
+      const now = new Date();
+
+      const formattedTime = new Intl.DateTimeFormat(undefined, {
+        hour: 'numeric',
+        minute: '2-digit',
+        hour12: true,
+      })
+        .format(now)
+        .toUpperCase();
+
+      const parts = new Intl.DateTimeFormat(undefined, {
+        timeZoneName: 'short',
+      }).formatToParts(now);
+
+      const shortZone =
+        parts.find((part) => part.type === 'timeZoneName')?.value ||
+        visitorTimeZone;
+
+      setTime(formattedTime);
+      setTimeZone(shortZone);
+    };
+
+    updateTime();
+
+    const interval = window.setInterval(updateTime, 1000);
+
+    return () => {
+      window.clearInterval(interval);
+    };
+  }, [visitorTimeZone]);
+
+  return {
+    time,
+    timeZone,
+  };
 }
