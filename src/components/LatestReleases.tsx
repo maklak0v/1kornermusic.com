@@ -28,6 +28,29 @@ export function LatestReleases() {
   });
 
   const bgY = useTransform(scrollYProgress, [0, 1], ['-8%', '8%']);
+  const storyY = useTransform(
+  scrollYProgress,
+  [0.02, 0.18, 0.34],
+  [80, 0, -55],
+);
+
+const storyOpacity = useTransform(
+  scrollYProgress,
+  [0.01, 0.12, 0.3, 0.42],
+  [0, 1, 1, 0.15],
+);
+
+const storyBlur = useTransform(
+  scrollYProgress,
+  [0.01, 0.14, 0.34],
+  ['blur(12px)', 'blur(0px)', 'blur(3px)'],
+);
+
+const storyScale = useTransform(
+  scrollYProgress,
+  [0.02, 0.18, 0.34],
+  [0.96, 1, 1.02],
+);
 
   const onListenEnter = () => {
     cursor?.setLabel('LISTEN');
@@ -48,37 +71,28 @@ export function LatestReleases() {
         <div className="flex flex-1 items-center justify-center py-20 sm:py-28">
           <FadeIn delay={0.1}>
             <div className="mx-auto max-w-4xl text-center">
-              <motion.h2
-                initial={reduced ? { opacity: 1 } : { opacity: 0, y: 25 }}
-                whileInView={reduced ? {} : { opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-80px' }}
-                transition={{
-                  duration: 1,
-                  ease: [0.16, 1, 0.3, 1],
-                }}
-                className="font-nemoy-med text-3xl uppercase tracking-[0.18em] text-bone/95 sm:text-4xl md:text-5xl"
-              >
-                KORNER
-              </motion.h2>
-
-              <motion.p
-                initial={reduced ? { opacity: 1 } : { opacity: 0, y: 20 }}
-                whileInView={reduced ? {} : { opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: '-80px' }}
-                transition={{
-                  duration: 1.1,
-                  delay: 0.15,
-                  ease: [0.16, 1, 0.3, 1],
-                }}
-                className="mx-auto mt-8 max-w-3xl font-nemoy-thin text-base leading-[2] tracking-wide text-bone/60 sm:text-lg md:text-xl"
-              >
-                KORNER is an artist from Ukraine, creating music since the age
-                of sixteen. For years, the tracks remained private — unfinished
-                files, late nights and memories that never left the room. Then,
-                after eight years, something from the past returned and changed
-                the direction of everything. KORNER is about stories, people
-                and the moments that stay with us.
-              </motion.p>
+              <motion.div
+  style={
+    reduced
+      ? {}
+      : {
+          y: storyY,
+          opacity: storyOpacity,
+          filter: storyBlur,
+          scale: storyScale,
+        }
+  }
+  className="mx-auto max-w-4xl text-center"
+>
+  <p className="font-nemoy-thin text-lg leading-[2.15] tracking-[0.08em] text-bone/65 sm:text-xl md:text-2xl">
+    KORNER is an artist from Ukraine, creating music since the age
+    of sixteen. For years, the tracks remained private — unfinished
+    files, late nights and memories that never left the room. Then,
+    after eight years, something from the past returned and changed
+    the direction of everything. KORNER is about stories, people
+    and the moments that stay with us.
+  </p>
+</motion.div>
             </div>
           </FadeIn>
         </div>
