@@ -38,8 +38,7 @@ export const releases: Release[] = [
       'The fourth transmission. A slow-burn anthem built for 4am warehouses and long drives through empty cities.',
     releaseDate: '2026.01.18',
     featured: true,
-    previewAudio:
-      asset('/audio/ikon-preview.mp3'),
+    previewAudio: asset('/audio/ikon-preview.mp3'),
     visualizerUrl: '#video',
     streaming: [
       {
@@ -47,24 +46,5 @@ export const releases: Release[] = [
         url: 'https://artists.landr.com/991048270466',
       },
     ],
-  },
-  {
-    id: 'de-piano',
-    title: 'de_piano',
-    version: 'beta_0.05',
-    year: '2026',
-    bpm: '92',
-    duration: '04:15',
-    status: 'upcoming',
-    artwork:
-      'https://images.pexels.com/photos/8722689/pexels-photo-8722689.jpeg?auto=compress&cs=tinysrgb&w=1600',
-    description:
-      'A late-night piano piece recorded in one take. No edits, no corrections — just the room and the memory.',
-    releaseDate: '2026 — coming soon',
-    featured: false,
-    previewAudio:
-      'https://cdn.pixabay.com/audio/2023/06/19/audio_4de68fe9a3.mp3',
-    visualizerUrl: '#video',
-    streaming: [],
   },
 ];
