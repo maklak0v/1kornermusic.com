@@ -74,7 +74,7 @@ export function LatestReleases() {
 
         <div className="flex flex-1 items-center justify-center py-20 sm:py-28">
           <FadeIn delay={0.1}>
-            <div className="mx-auto max-w-4xl text-center">
+            <div className="mx-auto max-w-5xl text-center">
               <motion.div
                 style={
                   reduced
@@ -86,9 +86,9 @@ export function LatestReleases() {
                         scale: storyScale,
                       }
                 }
-                className="mx-auto max-w-4xl text-center"
+                className="mx-auto max-w-5xl text-center"
               >
-                <p className="font-nemoy-thin text-xl leading-[2] tracking-[0.07em] text-bone/75 sm:text-2xl md:text-[1.65rem]">
+                <p className="font-nemoy-thin text-[22px] leading-[1.85] tracking-[0.06em] text-bone/80 sm:text-[28px] md:text-[34px] lg:text-[38px]">
                   KORNER is an artist from Ukraine, creating music since the age
                   of sixteen. For years, the tracks remained private —
                   unfinished files, late nights and memories that never left the
@@ -97,9 +97,9 @@ export function LatestReleases() {
                   stories, people and the moments that stay with us.
                 </p>
 
-                <div className="mx-auto mt-10 h-px w-20 bg-bone/20" />
+                <div className="mx-auto mt-12 h-px w-24 bg-bone/25" />
 
-                <p className="mt-4 font-nemoy-thin text-[9px] uppercase tracking-ultra text-ash">
+                <p className="mt-5 font-nemoy-thin text-[11px] uppercase tracking-[0.3em] text-ash sm:text-[12px]">
                   chapter 01 · the beginning
                 </p>
               </motion.div>
@@ -330,7 +330,7 @@ function ReleaseShowcase({
                 className="group flex items-center gap-2 border border-bone/30 px-6 py-3 font-nemoy-thin text-[11px] uppercase tracking-ultra text-bone transition-all duration-300 hover:bg-bone hover:text-ink"
               >
                 <Play size={12} strokeWidth={2} />
-                {isUpcoming ? 'PRE-SAVE' : 'LISTEN NOW'}
+                {isUpcoming ? 'PRE-SAVE' : `STREAM ${release.title}`}
               </button>
             </div>
           </motion.div>
