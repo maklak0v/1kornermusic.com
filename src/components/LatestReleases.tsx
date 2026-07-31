@@ -5,7 +5,7 @@ import {
   useTransform,
   type MotionValue,
 } from 'framer-motion';
-import { Play, Share2, Eye, ExternalLink } from 'lucide-react';
+import { Play } from 'lucide-react';
 import { releases, type Release } from '@/data/releases';
 import { SectionLabel, FadeIn } from '@/components/SectionLabel';
 import { ReleasePlayer } from '@/components/ReleasePlayer';
@@ -28,29 +28,30 @@ export function LatestReleases() {
   });
 
   const bgY = useTransform(scrollYProgress, [0, 1], ['-8%', '8%']);
+
   const storyY = useTransform(
-  scrollYProgress,
-  [0.02, 0.18, 0.34],
-  [45, 0, -30],
-);
+    scrollYProgress,
+    [0.02, 0.18, 0.34],
+    [45, 0, -30],
+  );
 
-const storyOpacity = useTransform(
-  scrollYProgress,
-  [0.01, 0.12, 0.34, 0.46],
-  [0, 1, 1, 0.7],
-);
+  const storyOpacity = useTransform(
+    scrollYProgress,
+    [0.01, 0.12, 0.34, 0.46],
+    [0, 1, 1, 0.7],
+  );
 
-const storyBlur = useTransform(
-  scrollYProgress,
-  [0.01, 0.12, 0.3],
-  ['blur(6px)', 'blur(0px)', 'blur(0px)'],
-);
+  const storyBlur = useTransform(
+    scrollYProgress,
+    [0.01, 0.12, 0.3],
+    ['blur(6px)', 'blur(0px)', 'blur(0px)'],
+  );
 
-const storyScale = useTransform(
-  scrollYProgress,
-  [0.02, 0.18, 0.34],
-  [0.98, 1, 1],
-);
+  const storyScale = useTransform(
+    scrollYProgress,
+    [0.02, 0.18, 0.34],
+    [0.98, 1, 1],
+  );
 
   const onListenEnter = () => {
     cursor?.setLabel('LISTEN');
@@ -66,52 +67,52 @@ const storyScale = useTransform(
     <section ref={sectionRef} className="relative bg-ink">
       {/* 01 — STORY */}
       <div
-  id="story"
-  className="relative mx-auto flex min-h-[85svh] max-w-[1600px] scroll-mt-24 flex-col px-5 pt-28 sm:px-8 sm:pt-36"
->
+        id="story"
+        className="relative mx-auto flex min-h-[85svh] max-w-[1600px] scroll-mt-24 flex-col px-5 pt-28 sm:px-8 sm:pt-36"
+      >
         <SectionLabel index="01" title="STORY" />
 
         <div className="flex flex-1 items-center justify-center py-20 sm:py-28">
           <FadeIn delay={0.1}>
             <div className="mx-auto max-w-4xl text-center">
-   <motion.div
-  style={
-    reduced
-      ? {}
-      : {
-          y: storyY,
-          opacity: storyOpacity,
-          filter: storyBlur,
-          scale: storyScale,
-        }
-  }
-  className="mx-auto max-w-4xl text-center"
->
-  <p className="font-nemoy-thin text-xl leading-[2] tracking-[0.07em] text-bone/75 sm:text-2xl md:text-[1.65rem]">
-    KORNER is an artist from Ukraine, creating music since the age
-    of sixteen. For years, the tracks remained private — unfinished
-    files, late nights and memories that never left the room. Then,
-    after eight years, something from the past returned and changed
-    the direction of everything. KORNER is about stories, people
-    and the moments that stay with us.
-  </p>
+              <motion.div
+                style={
+                  reduced
+                    ? {}
+                    : {
+                        y: storyY,
+                        opacity: storyOpacity,
+                        filter: storyBlur,
+                        scale: storyScale,
+                      }
+                }
+                className="mx-auto max-w-4xl text-center"
+              >
+                <p className="font-nemoy-thin text-xl leading-[2] tracking-[0.07em] text-bone/75 sm:text-2xl md:text-[1.65rem]">
+                  KORNER is an artist from Ukraine, creating music since the age
+                  of sixteen. For years, the tracks remained private —
+                  unfinished files, late nights and memories that never left the
+                  room. Then, after eight years, something from the past returned
+                  and changed the direction of everything. KORNER is about
+                  stories, people and the moments that stay with us.
+                </p>
 
-  <div className="mx-auto mt-10 h-px w-20 bg-bone/20" />
+                <div className="mx-auto mt-10 h-px w-20 bg-bone/20" />
 
-  <p className="mt-4 font-nemoy-thin text-[9px] uppercase tracking-ultra text-ash">
-    chapter 01 · the beginning
-  </p>
-</motion.div>
+                <p className="mt-4 font-nemoy-thin text-[9px] uppercase tracking-ultra text-ash">
+                  chapter 01 · the beginning
+                </p>
+              </motion.div>
             </div>
           </FadeIn>
         </div>
       </div>
 
       {/* 02 — LATEST TRANSMISSION */}
-     <div
-  id="music"
-  className="relative mx-auto max-w-[1600px] scroll-mt-24 px-5 pt-12 sm:px-8 sm:pt-20"
->
+      <div
+        id="music"
+        className="relative mx-auto max-w-[1600px] scroll-mt-24 px-5 pt-12 sm:px-8 sm:pt-20"
+      >
         <SectionLabel index="02" title="LATEST TRANSMISSION" />
 
         <FadeIn delay={0.1}>
@@ -134,7 +135,6 @@ const storyScale = useTransform(
             key={release.id}
             release={release}
             index={idx}
-            active={idx === activeIdx}
             onActivate={() => setActiveIdx(idx)}
             onListen={() => {
               setActiveIdx(idx);
@@ -161,7 +161,6 @@ const storyScale = useTransform(
 interface ReleaseShowcaseProps {
   release: Release;
   index: number;
-  active: boolean;
   onActivate: () => void;
   onListen: () => void;
   onListenEnter: () => void;
@@ -216,27 +215,6 @@ function ReleaseShowcase({
   );
 
   const isUpcoming = release.status === 'upcoming';
-  const releaseUrl = release.streaming[0]?.url;
-
-  const handleShare = async () => {
-    if (!releaseUrl) return;
-
-    try {
-      if (navigator.share) {
-        await navigator.share({
-          title: `KORNER — ${release.title}`,
-          text: `Listen to ${release.title} by KORNER`,
-          url: releaseUrl,
-        });
-        return;
-      }
-
-      await navigator.clipboard.writeText(releaseUrl);
-      window.alert('Release link copied.');
-    } catch {
-      // User cancelled sharing or the browser blocked it.
-    }
-  };
 
   return (
     <div
@@ -253,6 +231,7 @@ function ReleaseShowcase({
           alt=""
           className="h-full w-full scale-110 object-cover opacity-30 grayscale-[20%] blur-2xl"
         />
+
         <div className="absolute inset-0 bg-gradient-to-b from-ink via-ink/60 to-ink" />
       </motion.div>
 
@@ -328,7 +307,7 @@ function ReleaseShowcase({
               <MetaItem label="year" value={release.year} />
             </div>
 
-            <p className="mt-6 max-w-md font-nemoy-thin text-sm leading-relaxed text-bone/60">
+            <p className="mt-6 max-w-xl font-nemoy-thin text-[15px] leading-[1.9] tracking-[0.04em] text-bone/65 sm:text-[16px]">
               {release.description}
             </p>
 
@@ -344,6 +323,7 @@ function ReleaseShowcase({
 
             <div className="mt-8 flex flex-wrap items-center gap-3">
               <button
+                type="button"
                 onClick={onListen}
                 onMouseEnter={onListenEnter}
                 onMouseLeave={onListenLeave}
@@ -351,27 +331,6 @@ function ReleaseShowcase({
               >
                 <Play size={12} strokeWidth={2} />
                 {isUpcoming ? 'PRE-SAVE' : 'LISTEN NOW'}
-              </button>
-
-              <SecondaryButton
-                icon={<Eye size={12} strokeWidth={1.5} />}
-                label="WATCH VISUALIZER"
-                href={release.visualizerUrl}
-              />
-
-              <SecondaryButton
-                icon={<ExternalLink size={12} strokeWidth={1.5} />}
-                label="VIEW RELEASE"
-                href={releaseUrl}
-              />
-
-              <button
-                type="button"
-                onClick={handleShare}
-                className="flex items-center gap-2 px-3 py-3 font-nemoy-thin text-[10px] uppercase tracking-ultra text-bone/50 transition-colors hover:text-bone"
-              >
-                <Share2 size={12} strokeWidth={1.5} />
-                SHARE
               </button>
             </div>
           </motion.div>
@@ -398,42 +357,5 @@ function MetaItem({
         {value}
       </span>
     </div>
-  );
-}
-
-function SecondaryButton({
-  icon,
-  label,
-  href,
-}: {
-  icon: React.ReactNode;
-  label: string;
-  href?: string;
-}) {
-  const internalAnchor = href?.startsWith('#') && href !== '#';
-
-  return (
-    <a
-      href={href || '#'}
-      target={!internalAnchor && href ? '_blank' : undefined}
-      rel={!internalAnchor && href ? 'noreferrer' : undefined}
-      onClick={(event) => {
-        if (!href || href === '#') {
-          event.preventDefault();
-          return;
-        }
-
-        if (internalAnchor) {
-          event.preventDefault();
-          document
-            .querySelector(href)
-            ?.scrollIntoView({ behavior: 'smooth' });
-        }
-      }}
-      className="flex items-center gap-2 px-3 py-3 font-nemoy-thin text-[10px] uppercase tracking-ultra text-bone/50 transition-colors hover:text-bone"
-    >
-      {icon}
-      {label}
-    </a>
   );
 }
