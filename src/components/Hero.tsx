@@ -65,7 +65,7 @@ export function Hero() {
                   scale: lettersScale,
                 }
           }
-          className="select-none font-nemoy-thin text-[26vw] leading-[0.85] tracking-tight text-bone/90 sm:text-[22vw] md:text-[20vw]"
+          className="select-none font-nemoy-thin text-[28vw] leading-[0.82] tracking-tight text-bone/90 sm:text-[25vw] md:text-[23vw] lg:text-[22vw]"
           aria-label="KORNER"
         >
           <span className="flex">
@@ -102,7 +102,7 @@ export function Hero() {
       {/* Foreground subtitle */}
       <motion.div
         style={reduced ? {} : { opacity: textOpacity }}
-        className="absolute inset-0 flex flex-col items-center justify-end px-5 pb-[15vh] text-center sm:pb-[17vh]"
+        className="absolute inset-0 flex flex-col items-center justify-end px-5 pb-[16vh] text-center sm:pb-[18vh]"
       >
         <motion.p
           initial={
@@ -120,7 +120,7 @@ export function Hero() {
             delay: 1.6,
             ease: [0.16, 1, 0.3, 1],
           }}
-          className="font-nemoy-thin text-[16px] uppercase tracking-[0.34em] text-bone/85 sm:text-[18px] md:text-[20px]"
+          className="font-nemoy-thin text-[17px] uppercase tracking-[0.3em] text-bone/85 sm:text-[20px] md:text-[22px] lg:text-[24px]"
         >
           DJ · PRODUCER · ARTIST · FILMMAKER
         </motion.p>
@@ -141,7 +141,7 @@ export function Hero() {
             delay: 2.2,
             ease: [0.16, 1, 0.3, 1],
           }}
-          className="mt-5 font-nemoy-thin text-[15px] tracking-[0.08em] text-bone/65 sm:text-[17px] md:text-[19px]"
+          className="mt-6 font-nemoy-thin text-[16px] tracking-[0.08em] text-bone/65 sm:text-[19px] md:text-[21px] lg:text-[22px]"
         >
           music for the moments that stay with you.
         </motion.p>
@@ -150,7 +150,7 @@ export function Hero() {
       {/* Scroll indicator */}
       <motion.div
         style={reduced ? {} : { opacity: textOpacity }}
-        className="absolute bottom-7 left-1/2 -translate-x-1/2"
+        className="absolute bottom-6 left-1/2 -translate-x-1/2"
       >
         <motion.div
           initial={
@@ -169,7 +169,7 @@ export function Hero() {
           }}
           className="flex flex-col items-center gap-3"
         >
-          <span className="font-nemoy-thin text-[12px] uppercase tracking-[0.3em] text-bone/55 sm:text-[13px]">
+          <span className="whitespace-nowrap font-nemoy-thin text-[13px] uppercase tracking-[0.3em] text-bone/55 sm:text-[14px] lg:text-[15px]">
             scroll to enter
           </span>
 
@@ -184,7 +184,7 @@ export function Hero() {
               repeat: Infinity,
               ease: 'easeInOut',
             }}
-            className="h-9 w-px bg-gradient-to-b from-bone/50 to-transparent"
+            className="h-10 w-px bg-gradient-to-b from-bone/50 to-transparent"
           />
         </motion.div>
       </motion.div>
@@ -205,9 +205,9 @@ export function Hero() {
           duration: 1,
           delay: 3,
         }}
-        className="absolute left-5 top-24 hidden sm:left-8 sm:block"
+        className="absolute left-5 top-28 hidden sm:left-8 sm:block lg:left-10"
       >
-        <p className="font-nemoy-thin text-[15px] uppercase tracking-ultra text-ash">
+        <p className="font-nemoy-thin text-[16px] uppercase tracking-ultra text-ash lg:text-[17px]">
           DTLA
         </p>
       </motion.div>
@@ -227,9 +227,9 @@ export function Hero() {
           duration: 1,
           delay: 3.1,
         }}
-        className="absolute right-5 top-24 hidden text-right sm:right-8 sm:block"
+        className="absolute right-5 top-28 hidden text-right sm:right-8 sm:block lg:right-10"
       >
-        <p className="font-nemoy-thin text-[15px] uppercase tracking-ultra text-ash">
+        <p className="font-nemoy-thin text-[16px] uppercase tracking-ultra text-ash lg:text-[17px]">
           ph: @albanski.vids
         </p>
       </motion.div>
