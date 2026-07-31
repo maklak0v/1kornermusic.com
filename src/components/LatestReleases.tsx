@@ -4,6 +4,7 @@ import {
   useScroll,
   useTransform,
   type MotionValue,
+  type Variants,
 } from 'framer-motion';
 import { Play } from 'lucide-react';
 import { releases, type Release } from '@/data/releases';
@@ -12,6 +13,24 @@ import { ReleasePlayer } from '@/components/ReleasePlayer';
 import { StreamingLinksModal } from '@/components/StreamingLinksModal';
 import { useCursor } from '@/components/CustomCursor';
 import { useReducedMotion } from '@/hooks/useUi';
+
+const STORY_TEXT =
+  'KORNER is an artist from Ukraine, creating music since the age of sixteen. For years, the tracks remained private — unfinished files, late nights and memories that never left the room. Then, after eight years, something from the past returned and changed the direction of everything. KORNER is about stories, people and the moments that stay with us.';
+
+const wordContainer: Variants = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.025, delayChildren: 0.1 } },
+};
+
+const wordVariant: Variants = {
+  hidden: { opacity: 0, y: 14, filter: 'blur(4px)' },
+  visible: {
+    opacity: 1,
+    y: 0,
+    filter: 'blur(0px)',
+    transition: { duration: 0.6, ease: [0.16, 1, 0.3, 1] },
+  },
+};
 
 export function LatestReleases() {
   const [activeIdx, setActiveIdx] = useState(0);
@@ -88,18 +107,27 @@ export function LatestReleases() {
                 }
                 className="mx-auto max-w-4xl text-center"
               >
-                <p className="font-nemoy-thin text-xl leading-[2] tracking-[0.07em] text-bone/75 sm:text-2xl md:text-[1.65rem]">
-                  KORNER is an artist from Ukraine, creating music since the age
-                  of sixteen. For years, the tracks remained private —
-                  unfinished files, late nights and memories that never left the
-                  room. Then, after eight years, something from the past returned
-                  and changed the direction of everything. KORNER is about
-                  stories, people and the moments that stay with us.
-                </p>
+                <motion.p
+                  initial={reduced ? false : 'hidden'}
+                  whileInView={reduced ? undefined : 'visible'}
+                  variants={reduced ? undefined : wordContainer}
+                  viewport={{ once: true, margin: '-80px' }}
+                  className="font-nemoy-thin text-2xl leading-[2] tracking-[0.07em] text-bone/75 sm:text-[1.7rem] md:text-[1.85rem]"
+                >
+                  {STORY_TEXT.split(' ').map((word, i) => (
+                    <motion.span
+                      key={i}
+                      variants={reduced ? undefined : wordVariant}
+                      className="inline-block"
+                    >
+                      {word}{' '}
+                    </motion.span>
+                  ))}
+                </motion.p>
 
                 <div className="mx-auto mt-10 h-px w-20 bg-bone/20" />
 
-                <p className="mt-4 font-nemoy-thin text-[9px] uppercase tracking-ultra text-ash">
+                <p className="mt-6 font-nemoy-thin text-xs uppercase tracking-ultra text-ash sm:text-sm">
                   chapter 01 · the beginning
                 </p>
               </motion.div>
