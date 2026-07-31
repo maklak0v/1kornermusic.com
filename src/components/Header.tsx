@@ -47,7 +47,7 @@ export function Header() {
             : 'bg-transparent'
         }`}
       >
-        <div className="mx-auto flex max-w-[1600px] items-center justify-between px-6 py-5 sm:px-8 lg:px-10">
+        <div className="mx-auto flex max-w-[1250px] items-center justify-between px-6 py-6 sm:px-8 lg:px-10 lg:py-7">
           {/* Logo */}
           <a
             href="#top"
@@ -55,13 +55,13 @@ export function Header() {
               event.preventDefault();
               window.scrollTo({ top: 0, behavior: 'smooth' });
             }}
-            className="font-nemoy-med text-[17px] uppercase tracking-[0.28em] text-bone sm:text-[18px] lg:text-[19px]"
+            className="font-nemoy-med text-[18px] uppercase tracking-[0.28em] text-bone sm:text-[20px] lg:text-[22px]"
           >
             KORNER
           </a>
 
           {/* Desktop navigation */}
-          <nav className="hidden items-center gap-9 lg:flex xl:gap-11">
+          <nav className="hidden items-center gap-10 lg:flex xl:gap-12">
             {NAV.map((item) => (
               <a
                 key={item.label}
@@ -70,7 +70,7 @@ export function Header() {
                   event.preventDefault();
                   handleNav(item.href);
                 }}
-                className="font-nemoy-thin text-[14px] uppercase tracking-[0.22em] text-bone/80 transition-colors duration-300 hover:text-bone xl:text-[15px]"
+                className="font-nemoy-thin text-[16px] uppercase tracking-[0.22em] text-bone/80 transition-colors duration-300 hover:text-bone xl:text-[17px]"
               >
                 {item.label}
               </a>
@@ -78,18 +78,18 @@ export function Header() {
           </nav>
 
           {/* Time, sound and mobile menu */}
-          <div className="flex items-center gap-5 lg:gap-7">
-            <div className="hidden items-center gap-2 lg:flex">
-              <span className="font-nemoy-thin text-[14px] uppercase tracking-[0.14em] text-bone/85 xl:text-[15px]">
+          <div className="flex items-center gap-5 lg:gap-8">
+            <div className="hidden items-center gap-2.5 lg:flex">
+              <span className="font-nemoy-thin text-[16px] uppercase tracking-[0.14em] text-bone/85 xl:text-[17px]">
                 {localTime.time}
               </span>
 
-              <span className="font-nemoy-thin text-[11px] uppercase tracking-[0.16em] text-bone/50">
+              <span className="font-nemoy-thin text-[12px] uppercase tracking-[0.16em] text-bone/50 xl:text-[13px]">
                 {localTime.timeZone}
               </span>
             </div>
 
-            <div className="hidden items-center sm:flex">
+            <div className="hidden origin-center scale-[1.18] items-center sm:flex lg:scale-[1.28]">
               <SoundControl />
             </div>
 
@@ -99,7 +99,7 @@ export function Header() {
               className="flex items-center text-bone/80 transition-colors hover:text-bone lg:hidden"
               aria-label="Open menu"
             >
-              <Menu size={22} strokeWidth={1.6} />
+              <Menu size={25} strokeWidth={1.5} />
             </button>
           </div>
         </div>
@@ -150,9 +150,9 @@ function MobileMenu({
           className="fixed inset-0 z-[200] flex flex-col bg-ink lg:hidden"
         >
           {/* Mobile top bar */}
-          <div className="flex items-center justify-between px-6 py-5">
+          <div className="flex items-center justify-between px-6 py-6">
             <div className="flex items-center gap-2">
-              <span className="font-nemoy-thin text-[14px] uppercase tracking-[0.14em] text-bone/85">
+              <span className="font-nemoy-thin text-[15px] uppercase tracking-[0.14em] text-bone/85">
                 {localTime.time}
               </span>
 
@@ -161,7 +161,7 @@ function MobileMenu({
               </span>
             </div>
 
-            <div className="block sm:hidden">
+            <div className="block origin-center scale-110 sm:hidden">
               <SoundControl />
             </div>
 
@@ -171,12 +171,12 @@ function MobileMenu({
               className="text-bone/80 transition-colors hover:text-bone"
               aria-label="Close menu"
             >
-              <X size={22} strokeWidth={1.6} />
+              <X size={25} strokeWidth={1.5} />
             </button>
           </div>
 
           {/* Mobile navigation */}
-          <nav className="flex flex-1 flex-col justify-center gap-2 px-6">
+          <nav className="flex flex-1 flex-col justify-center gap-3 px-6">
             {items.map((item, index) => (
               <motion.a
                 key={`${item.label}-${item.href}`}
@@ -201,7 +201,7 @@ function MobileMenu({
                   ease: [0.16, 1, 0.3, 1],
                 }}
                 className={`font-nemoy-thin uppercase tracking-[0.2em] text-bone transition-colors hover:text-ember ${
-                  item.big ? 'text-3xl' : 'text-[22px]'
+                  item.big ? 'text-4xl' : 'text-[24px]'
                 }`}
               >
                 {item.label}
