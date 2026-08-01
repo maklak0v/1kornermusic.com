@@ -29,8 +29,8 @@ export function PhotoArchive() {
         <SectionLabel index="04" title="ART" />
         <div className="mt-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <FadeIn delay={0.15}>
-            <p className="max-w-xs font-nemoy-thin text-sm leading-relaxed text-ash">
-              a private visual diary. frames from the studio, the streets, and the rooms in between.
+            <p className="max-w-xs font-nemoy-thin text-[29px] leading-relaxed text-ash">
+              moments that never asked to be remembered — but stayed anyway.
             </p>
           </FadeIn>
         </div>
