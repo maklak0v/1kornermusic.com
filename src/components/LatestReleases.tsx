@@ -99,7 +99,7 @@ export function LatestReleases() {
 
                 <div className="mx-auto mt-10 h-px w-20 bg-bone/20" />
 
-                <p className="mt-6 font-nemoy-thin text-sm uppercase tracking-[0.35em] text-ash/80">
+                <p className="mt-6 font-nemoy-thin text-sm uppercase tracking-[0.35em] text-bone/70">
                   chapter 01 · the beginning
                 </p>
               </motion.div>
