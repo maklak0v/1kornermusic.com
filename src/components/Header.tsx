@@ -8,7 +8,7 @@ const NAV = [
   { label: 'STORY', href: '#story' },
   { label: 'MUSIC', href: '#music' },
   { label: 'MERCH', href: '#merch' },
-  { label: 'PHOTOS', href: '#photos' },
+  { label: 'ART', href: '#photos' },
   { label: 'VIDEO', href: '#video' },
 ];
 

@@ -12,12 +12,6 @@ export function PhotoArchive() {
   const cursor = useCursor();
   const reduced = useReducedMotion();
 
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ['start end', 'end start'],
-  });
-  const titleX = useTransform(scrollYProgress, [0, 1], ['-15%', '15%']);
-
   const onPhotoEnter = () => { cursor?.setLabel('VIEW'); cursor?.setVariant('view'); };
   const onPhotoLeave = () => { cursor?.setLabel(null); cursor?.setVariant('default'); };
 
@@ -32,16 +26,8 @@ export function PhotoArchive() {
     <section ref={sectionRef} id="photos" className="relative overflow-hidden bg-ink py-28 sm:py-36">
       {/* Header */}
       <div className="relative mx-auto max-w-[1600px] px-5 sm:px-8">
-        <SectionLabel index="04" title="RECENT MEMORIES" />
+        <SectionLabel index="04" title="ART" />
         <div className="mt-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-          <FadeIn>
-            <motion.h2
-              style={reduced ? {} : { x: titleX }}
-              className="font-nemoy-black text-5xl uppercase leading-none tracking-tight text-bone sm:text-8xl"
-            >
-              KORNER.MP4
-            </motion.h2>
-          </FadeIn>
           <FadeIn delay={0.15}>
             <p className="max-w-xs font-nemoy-thin text-sm leading-relaxed text-ash">
               a private visual diary. frames from the studio, the streets, and the rooms in between.
