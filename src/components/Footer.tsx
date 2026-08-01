@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react';
+import { KollabDice } from '@/components/KollabDice';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
 import { socialLinks } from '@/data/social';
@@ -158,6 +159,7 @@ export function Footer() {
           <p className="font-nemoy-thin text-[10px] uppercase tracking-ultra text-ash">
             music for the moments that stay with you.
           </p>
+          <KollabDice />
         </div>
       </div>
     </footer>
