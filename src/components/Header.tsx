@@ -78,7 +78,9 @@ export function Header() {
 
           {/* Kollab logo and mobile menu */}
           <div className="flex items-center gap-5 lg:gap-8">
-            <KollabDice compact />
+            <div className="hidden lg:block">
+              <KollabDice compact />
+            </div>
 
             <button
               type="button"
@@ -181,6 +183,20 @@ function MobileMenu({
                 {item.label}
               </motion.a>
             ))}
+
+            <motion.div
+              key="kollab-dice"
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{
+                duration: 0.55,
+                delay: 0.08 + items.length * 0.05,
+                ease: [0.16, 1, 0.3, 1],
+              }}
+              className="mt-4 flex justify-center"
+            >
+              <KollabDice compact />
+            </motion.div>
           </nav>
         </motion.div>
       )}
