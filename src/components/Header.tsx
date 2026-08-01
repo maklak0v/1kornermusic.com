@@ -2,7 +2,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
 import { useScrolled } from '@/hooks/useUi';
-import { SoundControl } from '@/components/SoundControl';
 
 const NAV = [
   { label: 'STORY', href: '#story' },
@@ -89,10 +88,6 @@ export function Header() {
               </span>
             </div>
 
-            <div className="hidden origin-center scale-[1.18] items-center sm:flex lg:scale-[1.28]">
-              <SoundControl />
-            </div>
-
             <button
               type="button"
               onClick={() => setMenuOpen(true)}
@@ -159,10 +154,6 @@ function MobileMenu({
               <span className="font-nemoy-thin text-[10px] uppercase tracking-[0.16em] text-bone/50">
                 {localTime.timeZone}
               </span>
-            </div>
-
-            <div className="block origin-center scale-110 sm:hidden">
-              <SoundControl />
             </div>
 
             <button
