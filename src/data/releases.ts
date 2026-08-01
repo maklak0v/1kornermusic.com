@@ -47,4 +47,26 @@ export const releases: Release[] = [
       },
     ],
   },
+  {
+    id: 'de_piano',
+    title: 'de_piano',
+    version: 'beta_0.05',
+    year: '2026',
+    bpm: '124',
+    duration: '04:15',
+    status: 'released',
+    artwork: asset('/images/de_piano.webp'),
+    backdropImage: asset('/images/de_piano.webp'),
+    description:
+      'de_piano began as a private moment — a late-night piano piece built from silence, memory, and emotion. Minimal, intimate, and raw, it captures the feeling of being alone with thoughts that never really left.',
+    releaseDate: '2026.08.01',
+    featured: true,
+    previewAudio: asset('/audio/de-piano-preview.mp3'),
+    streaming: [
+      {
+        platform: 'All Platforms',
+        url: 'https://artists.landr.com/991048270466',
+      },
+    ],
+  },
 ];

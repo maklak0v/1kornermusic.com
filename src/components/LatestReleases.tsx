@@ -58,6 +58,8 @@ const slideVariants: Variants = {
   }),
 };
 
+const SWIPE_THRESHOLD = 80;
+
 export function LatestReleases() {
   const [activeIdx, setActiveIdx] = useState(0);
   const [direction, setDirection] = useState(0);
@@ -81,10 +83,31 @@ export function LatestReleases() {
   const storyBlur = useTransform(scrollYProgress, [0.01, 0.12, 0.3], ['blur(6px)', 'blur(0px)', 'blur(0px)']);
   const storyScale = useTransform(scrollYProgress, [0.02, 0.18, 0.34], [0.98, 1, 1]);
 
-  const paginate = useCallback((newDir: number) => {
-    setDirection(newDir);
-    setActiveIdx(i => (i + newDir + total) % total);
-  }, [total]);
+  const goTo = useCallback((target: number, dir: number) => {
+    setDirection(dir);
+    setActiveIdx(target);
+  }, []);
+
+  const paginate = useCallback(
+    (newDir: number) => {
+      setDirection(newDir);
+      setActiveIdx(i => (i + newDir + total) % total);
+    },
+    [total],
+  );
+
+  const onDragEnd = useCallback(
+    (_: unknown, info: { offset: { x: number }; velocity: { x: number } }) => {
+      const swipe = info.offset.x;
+      const velocity = Math.abs(info.velocity.x);
+      if (swipe < -SWIPE_THRESHOLD || (swipe < 0 && velocity > 500)) {
+        paginate(1);
+      } else if (swipe > SWIPE_THRESHOLD || (swipe > 0 && velocity > 500)) {
+        paginate(-1);
+      }
+    },
+    [paginate],
+  );
 
   const onListenEnter = () => {
     cursor?.setLabel('LISTEN');
@@ -193,7 +216,7 @@ export function LatestReleases() {
           </h3>
         </div>
 
-        {/* Slide content */}
+        {/* Slide content — draggable for swipe support */}
         <div className="relative min-h-[75svh]">
           <AnimatePresence initial={false} custom={direction} mode="wait">
             <motion.div
@@ -203,7 +226,12 @@ export function LatestReleases() {
               initial={reduced ? false : 'enter'}
               animate="center"
               exit={reduced ? undefined : 'exit'}
-              className="relative mx-auto flex min-h-[75svh] max-w-[1600px] flex-col items-center justify-start gap-10 px-5 pb-28 pt-10 sm:px-8 sm:pt-14 lg:flex-row lg:justify-center lg:gap-16"
+              drag={total > 1 ? 'x' : false}
+              dragConstraints={{ left: 0, right: 0 }}
+              dragElastic={0.2}
+              dragMomentum={false}
+              onDragEnd={onDragEnd}
+              className="relative mx-auto flex min-h-[75svh] max-w-[1600px] cursor-grab flex-col items-center justify-start gap-10 px-5 pb-28 pt-10 active:cursor-grabbing sm:px-8 sm:pt-14 lg:flex-row lg:justify-center lg:gap-16"
             >
               {/* Artwork */}
               <div className="relative w-full max-w-sm shrink-0 lg:w-[42%] lg:max-w-md">
@@ -281,29 +309,32 @@ export function LatestReleases() {
                 <ChevronLeft size={16} strokeWidth={1.5} />
               </button>
 
-              <div className="flex items-center gap-2">
-                {releases.map((_, i) => (
-                  <button
-                    key={i}
-                    type="button"
-                    onClick={() => {
-                      setDirection(i > activeIdx ? 1 : -1);
-                      setActiveIdx(i);
-                    }}
-                    className={`h-1 transition-all duration-300 ${
-                      i === activeIdx
-                        ? 'w-6 bg-bone'
-                        : 'w-1 bg-bone/30 hover:bg-bone/60'
-                    }`}
-                    aria-label={`Go to release ${i + 1}`}
-                  />
-                ))}
+              {/* Slide indicator: counter + dots */}
+              <div className="flex items-center gap-3">
+                <span className="font-nemoy-thin text-[10px] uppercase tracking-ultra text-bone/50">
+                  {String(activeIdx + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}
+                </span>
+                <div className="flex items-center gap-2">
+                  {releases.map((_, i) => (
+                    <button
+                      key={i}
+                      type="button"
+                      onClick={() => goTo(i, i > activeIdx ? 1 : -1)}
+                      className={`h-1 transition-all duration-300 ${
+                        i === activeIdx
+                          ? 'w-6 bg-bone'
+                          : 'w-1 bg-bone/30 hover:bg-bone/60'
+                      }`}
+                      aria-label={`Go to release ${i + 1}`}
+                    />
+                  ))}
+                </div>
               </div>
 
               <button
                 type="button"
                 onClick={() => paginate(1)}
-                className="flex h-9 w-9 items-center justify-center border border-bone/20 text-bone/50 transition-all duration-200 hover:border-bone/60 hover:text-bone"
+                className="flex h-9 w-9 items-center justify-center border border-bone/20 text-bone/30 transition-all duration-200 hover:border-bone/60 hover:text-bone"
                 aria-label="Next release"
               >
                 <ChevronRight size={16} strokeWidth={1.5} />
