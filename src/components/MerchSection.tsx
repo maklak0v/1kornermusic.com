@@ -56,7 +56,7 @@ export function MerchSection() {
           </FadeIn>
           <FadeIn delay={0.15}>
             <div className="flex items-center gap-3">
-              <span className="font-nemoy-thin text-[10px] uppercase tracking-ultra text-ash">
+              <span className="font-nemoy-thin text-[15px] uppercase tracking-ultra text-ash">
                 FIRST DROP COMING SOON
               </span>
               <div className="hidden gap-2 sm:flex">
@@ -98,17 +98,17 @@ export function MerchSection() {
 
         {/* Notify card at the end */}
         <div className="flex snap-center shrink-0 flex-col justify-center border border-bone/10 bg-ink-900 p-8 w-[85vw] sm:w-[420px]">
-          <p className="font-nemoy-thin text-[10px] uppercase tracking-ultra text-ash">
+          <p className="font-nemoy-thin text-[15px] uppercase tracking-ultra text-ash">
             NOTIFY
           </p>
-          <h3 className="mt-2 font-nemoy-med text-2xl uppercase leading-tight tracking-wide text-bone">
+          <h3 className="mt-2 font-nemoy-med text-[29px] uppercase leading-tight tracking-wide text-bone">
             be first in line.
           </h3>
-          <p className="mt-2 font-nemoy-thin text-sm leading-relaxed text-bone/50">
+          <p className="mt-2 font-nemoy-thin text-[19px] leading-relaxed text-bone/50">
             notify me when the first drop begins.
           </p>
           {submitted ? (
-            <p className="mt-6 font-nemoy-thin text-sm text-bone">
+            <p className="mt-6 font-nemoy-thin text-[19px] text-bone">
               you're on the list. we'll be in touch.
             </p>
           ) : (
@@ -119,11 +119,11 @@ export function MerchSection() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="email address"
-                className="border-b border-bone/20 bg-transparent py-3 font-nemoy-thin text-sm text-bone placeholder:text-ash focus:border-bone/60 focus:outline-none"
+                className="border-b border-bone/20 bg-transparent py-3 font-nemoy-thin text-[19px] text-bone placeholder:text-ash focus:border-bone/60 focus:outline-none"
               />
               <button
                 type="submit"
-                className="mt-2 flex items-center justify-center border border-bone/30 py-3 font-nemoy-thin text-[11px] uppercase tracking-ultra text-bone transition-all hover:bg-bone hover:text-ink"
+                className="mt-2 flex items-center justify-center border border-bone/30 py-3 font-nemoy-thin text-[16px] uppercase tracking-ultra text-bone transition-all hover:bg-bone hover:text-ink"
               >
                 NOTIFY ME
               </button>
@@ -175,17 +175,17 @@ function ProductItem({ product, index, onEnter, onLeave, reduced }: ProductItemP
 
         {/* Coming soon centred */}
         <div className="absolute inset-0 flex flex-col items-center justify-center gap-2">
-          <span className="font-nemoy-thin text-[10px] uppercase tracking-ultra text-bone/50">
+          <span className="font-nemoy-thin text-[15px] uppercase tracking-ultra text-bone/50">
             {product.drop}
           </span>
-          <span className="font-nemoy-med text-xl uppercase tracking-ultra text-bone sm:text-2xl">
+          <span className="font-nemoy-med text-[25px] uppercase tracking-ultra text-bone sm:text-[29px]">
             COMING SOON
           </span>
         </div>
 
         {/* Code overlay */}
         <div className="absolute bottom-3 left-3">
-          <span className="font-nemoy-thin text-[9px] uppercase tracking-ultra text-bone/50">
+          <span className="font-nemoy-thin text-[14px] uppercase tracking-ultra text-bone/50">
             {product.code}
           </span>
         </div>
@@ -194,26 +194,26 @@ function ProductItem({ product, index, onEnter, onLeave, reduced }: ProductItemP
       {/* Info */}
       <div className="mt-4 flex items-start justify-between">
         <div>
-          <h3 className="font-nemoy-med text-sm uppercase tracking-wide text-bone">
+          <h3 className="font-nemoy-med text-[19px] uppercase tracking-wide text-bone">
             {product.name}
           </h3>
-          <p className="mt-1 font-nemoy-thin text-[10px] uppercase tracking-ultra text-ash">
+          <p className="mt-1 font-nemoy-thin text-[15px] uppercase tracking-ultra text-ash">
             {product.drop} · {product.price}
           </p>
         </div>
-        <span className="font-nemoy-thin text-[10px] uppercase tracking-ultra text-bone/40 transition-colors group-hover:text-bone">
+        <span className="font-nemoy-thin text-[15px] uppercase tracking-ultra text-bone/40 transition-colors group-hover:text-bone">
           {product.status === 'coming-soon' ? 'NOTIFY ME' : 'VIEW ITEM'}
         </span>
       </div>
 
       {/* Hover detail */}
       <div className="mt-3 max-h-0 overflow-hidden opacity-0 transition-all duration-500 group-hover:max-h-32 group-hover:opacity-100">
-        <p className="font-nemoy-thin text-xs leading-relaxed text-bone/50">
+        <p className="font-nemoy-thin text-[17px] leading-relaxed text-bone/50">
           {product.description}
         </p>
         <div className="mt-3 flex gap-1.5">
           {product.sizes.map((s) => (
-            <span key={s} className="border border-bone/15 px-2 py-0.5 font-nemoy-thin text-[9px] uppercase text-bone/40">
+            <span key={s} className="border border-bone/15 px-2 py-0.5 font-nemoy-thin text-[14px] uppercase text-bone/40">
               {s}
             </span>
           ))}
