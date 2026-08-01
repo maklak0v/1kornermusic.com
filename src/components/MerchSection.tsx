@@ -23,7 +23,7 @@ export function MerchSection() {
   const scrollBy = (dir: 1 | -1) => {
     const track = trackRef.current;
     if (!track) return;
-    track.scrollBy({ left: dir * (window.innerWidth > 768 ? 460 : 300), behavior: 'smooth' });
+    track.scrollBy({ left: dir * (window.innerWidth > 768 ? 520 : 340), behavior: 'smooth' });
   };
 
   const onItemEnter = () => { cursor?.setLabel('SHOP'); cursor?.setVariant('shop'); };
@@ -97,7 +97,7 @@ export function MerchSection() {
         ))}
 
         {/* Notify card at the end */}
-        <div className="flex snap-center shrink-0 flex-col justify-center border border-bone/10 bg-ink-900 p-8 w-[85vw] sm:w-[420px]">
+        <div className="flex snap-center shrink-0 flex-col justify-center border border-bone/10 bg-ink-900 p-8 w-[85vw] sm:w-[480px]">
           <p className="font-nemoy-thin text-[15px] uppercase tracking-ultra text-ash">
             NOTIFY
           </p>
@@ -159,7 +159,7 @@ function ProductItem({ product, index, onEnter, onLeave, reduced }: ProductItemP
       viewport={{ once: true, margin: '-50px' }}
       transition={{ duration: 0.8, delay: index * 0.1, ease: [0.16, 1, 0.3, 1] }}
       className="group relative flex snap-center shrink-0 flex-col"
-      style={{ width: 'min(85vw, 420px)' }}
+      style={{ width: 'min(85vw, 480px)' }}
       onMouseEnter={onEnter}
       onMouseLeave={onLeave}
     >
