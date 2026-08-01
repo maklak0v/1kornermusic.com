@@ -48,7 +48,7 @@ export function MerchSection() {
         <SectionLabel index="03" title="MERCH" />
         <div className="mt-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <FadeIn>
-            <h2 className="font-nemoy-black text-5xl uppercase leading-none tracking-tight text-bone sm:text-7xl">
+            <h2 className="font-nemoy-thin text-5xl uppercase leading-none tracking-tight text-bone sm:text-7xl">
               objects from the
               <br />
               <span className="text-bone/40">world of KORNER.</span>
