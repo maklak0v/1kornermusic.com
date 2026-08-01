@@ -1,13 +1,13 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, useCallback } from 'react';
 import {
   motion,
   useScroll,
   useTransform,
-  type MotionValue,
+  AnimatePresence,
   type Variants,
 } from 'framer-motion';
-import { Play } from 'lucide-react';
-import { releases, type Release } from '@/data/releases';
+import { Play, ChevronLeft, ChevronRight } from 'lucide-react';
+import { releases } from '@/data/releases';
 import { SectionLabel, FadeIn } from '@/components/SectionLabel';
 import { ReleasePlayer } from '@/components/ReleasePlayer';
 import { StreamingLinksModal } from '@/components/StreamingLinksModal';
@@ -41,14 +41,33 @@ const chapterVariant: Variants = {
   },
 };
 
+const slideVariants: Variants = {
+  enter: (dir: number) => ({
+    x: dir > 0 ? '6%' : '-6%',
+    opacity: 0,
+  }),
+  center: {
+    x: 0,
+    opacity: 1,
+    transition: { duration: 0.55, ease: [0.16, 1, 0.3, 1] },
+  },
+  exit: (dir: number) => ({
+    x: dir > 0 ? '-6%' : '6%',
+    opacity: 0,
+    transition: { duration: 0.35, ease: [0.4, 0, 1, 1] },
+  }),
+};
+
 export function LatestReleases() {
   const [activeIdx, setActiveIdx] = useState(0);
+  const [direction, setDirection] = useState(0);
   const [streamingOpen, setStreamingOpen] = useState(false);
   const cursor = useCursor();
   const reduced = useReducedMotion();
   const sectionRef = useRef<HTMLElement>(null);
 
   const active = releases[activeIdx];
+  const total = releases.length;
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -57,29 +76,15 @@ export function LatestReleases() {
 
   const bgY = useTransform(scrollYProgress, [0, 1], ['-8%', '8%']);
 
-  const storyY = useTransform(
-    scrollYProgress,
-    [0.02, 0.18, 0.34],
-    [45, 0, -30],
-  );
+  const storyY = useTransform(scrollYProgress, [0.02, 0.18, 0.34], [45, 0, -30]);
+  const storyOpacity = useTransform(scrollYProgress, [0.01, 0.12, 0.34, 0.46], [0, 1, 1, 0.7]);
+  const storyBlur = useTransform(scrollYProgress, [0.01, 0.12, 0.3], ['blur(6px)', 'blur(0px)', 'blur(0px)']);
+  const storyScale = useTransform(scrollYProgress, [0.02, 0.18, 0.34], [0.98, 1, 1]);
 
-  const storyOpacity = useTransform(
-    scrollYProgress,
-    [0.01, 0.12, 0.34, 0.46],
-    [0, 1, 1, 0.7],
-  );
-
-  const storyBlur = useTransform(
-    scrollYProgress,
-    [0.01, 0.12, 0.3],
-    ['blur(6px)', 'blur(0px)', 'blur(0px)'],
-  );
-
-  const storyScale = useTransform(
-    scrollYProgress,
-    [0.02, 0.18, 0.34],
-    [0.98, 1, 1],
-  );
+  const paginate = useCallback((newDir: number) => {
+    setDirection(newDir);
+    setActiveIdx(i => (i + newDir + total) % total);
+  }, [total]);
 
   const onListenEnter = () => {
     cursor?.setLabel('LISTEN');
@@ -107,12 +112,7 @@ export function LatestReleases() {
                 style={
                   reduced
                     ? {}
-                    : {
-                        y: storyY,
-                        opacity: storyOpacity,
-                        filter: storyBlur,
-                        scale: storyScale,
-                      }
+                    : { y: storyY, opacity: storyOpacity, filter: storyBlur, scale: storyScale }
                 }
                 className="mx-auto max-w-4xl text-center"
               >
@@ -166,29 +166,151 @@ export function LatestReleases() {
 
         <FadeIn delay={0.2}>
           <p className="mt-4 max-w-xl font-nemoy-thin text-[18px] leading-relaxed tracking-[0.06em] text-ash sm:text-[20px] md:text-[22px]">
-  every release is another chapter.
-</p>
+            every release is another chapter.
+          </p>
         </FadeIn>
       </div>
 
-      {/* Release showcase */}
-      <div className="relative mt-6 sm:mt-10">
-        {releases.map((release, idx) => (
-          <ReleaseShowcase
-            key={release.id}
-            release={release}
-            index={idx}
-            onActivate={() => setActiveIdx(idx)}
-            onListen={() => {
-              setActiveIdx(idx);
-              setStreamingOpen(true);
-            }}
-            onListenEnter={onListenEnter}
-            onListenLeave={onListenLeave}
-            bgY={bgY as MotionValue<string>}
-            reduced={reduced}
+      {/* Carousel */}
+      <div className="relative mt-6 sm:mt-10 overflow-hidden">
+        {/* Backdrop */}
+        <motion.div
+          style={reduced ? undefined : { y: bgY }}
+          className="absolute inset-0"
+        >
+          <img
+            src={active.backdropImage || active.artwork}
+            alt=""
+            className="h-full w-full scale-110 object-cover opacity-30 grayscale-[20%] blur-2xl"
           />
-        ))}
+          <div className="absolute inset-0 bg-gradient-to-b from-ink via-ink/60 to-ink" />
+        </motion.div>
+
+        {/* Giant bg title */}
+        <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+          <h3 className="select-none font-nemoy-black text-[18vw] leading-none tracking-tight text-bone/[0.04] sm:text-[14vw]">
+            {active.title}
+          </h3>
+        </div>
+
+        {/* Slide content */}
+        <div className="relative min-h-[75svh]">
+          <AnimatePresence initial={false} custom={direction} mode="wait">
+            <motion.div
+              key={active.id}
+              custom={direction}
+              variants={reduced ? undefined : slideVariants}
+              initial={reduced ? false : 'enter'}
+              animate="center"
+              exit={reduced ? undefined : 'exit'}
+              className="relative mx-auto flex min-h-[75svh] max-w-[1600px] flex-col items-center justify-start gap-10 px-5 pb-28 pt-10 sm:px-8 sm:pt-14 lg:flex-row lg:justify-center lg:gap-16"
+            >
+              {/* Artwork */}
+              <div className="relative w-full max-w-sm shrink-0 lg:w-[42%] lg:max-w-md">
+                <div className="group relative aspect-square w-full overflow-hidden">
+                  <img
+                    src={active.artwork}
+                    alt={`${active.title} artwork`}
+                    className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-ink/40 to-transparent" />
+                  <div className="absolute left-4 top-4">
+                    <span className="font-nemoy-thin text-[9px] uppercase tracking-ultra text-bone/70">
+                      {active.version}
+                    </span>
+                  </div>
+                  {active.status === 'upcoming' && (
+                    <div className="absolute right-4 top-4">
+                      <span className="border border-bone/30 bg-ink/60 px-2 py-1 font-nemoy-thin text-[8px] uppercase tracking-ultra text-bone">
+                        coming soon
+                      </span>
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              {/* Info */}
+              <div className="flex w-full flex-col lg:w-[50%]">
+                <div className="grid grid-cols-2 gap-x-8 gap-y-3 border-b border-bone/10 pb-6 sm:grid-cols-3">
+                  <MetaItem label="artist" value="KORNER" />
+                  <MetaItem label="title" value={active.title} />
+                  <MetaItem label="version" value={active.version} />
+                  <MetaItem label="bpm" value={active.bpm} />
+                  <MetaItem label="duration" value={active.duration} />
+                  <MetaItem label="year" value={active.year} />
+                </div>
+
+                <p className="mt-6 max-w-xl font-nemoy-thin text-[15px] leading-[1.9] tracking-[0.04em] text-bone/65 sm:text-[16px]">
+                  {active.description}
+                </p>
+
+                {active.previewAudio && (
+                  <div className="mt-8">
+                    <p className="mb-3 font-nemoy-thin text-[9px] uppercase tracking-ultra text-ash">
+                      preview
+                    </p>
+                    <ReleasePlayer release={active} />
+                  </div>
+                )}
+
+                <div className="mt-8 flex flex-wrap items-center gap-3">
+                  <button
+                    type="button"
+                    onClick={() => setStreamingOpen(true)}
+                    onMouseEnter={onListenEnter}
+                    onMouseLeave={onListenLeave}
+                    className="group flex items-center gap-2 border border-bone/30 px-6 py-3 font-nemoy-thin text-[11px] uppercase tracking-ultra text-bone transition-all duration-300 hover:bg-bone hover:text-ink"
+                  >
+                    <Play size={12} strokeWidth={2} />
+                    {active.status === 'upcoming' ? 'PRE-SAVE' : `STREAM ${active.title}`}
+                  </button>
+                </div>
+              </div>
+            </motion.div>
+          </AnimatePresence>
+
+          {/* Navigation */}
+          {total > 1 && (
+            <div className="absolute bottom-8 left-0 right-0 flex items-center justify-center gap-6">
+              <button
+                type="button"
+                onClick={() => paginate(-1)}
+                className="flex h-9 w-9 items-center justify-center border border-bone/20 text-bone/50 transition-all duration-200 hover:border-bone/60 hover:text-bone"
+                aria-label="Previous release"
+              >
+                <ChevronLeft size={16} strokeWidth={1.5} />
+              </button>
+
+              <div className="flex items-center gap-2">
+                {releases.map((_, i) => (
+                  <button
+                    key={i}
+                    type="button"
+                    onClick={() => {
+                      setDirection(i > activeIdx ? 1 : -1);
+                      setActiveIdx(i);
+                    }}
+                    className={`h-1 transition-all duration-300 ${
+                      i === activeIdx
+                        ? 'w-6 bg-bone'
+                        : 'w-1 bg-bone/30 hover:bg-bone/60'
+                    }`}
+                    aria-label={`Go to release ${i + 1}`}
+                  />
+                ))}
+              </div>
+
+              <button
+                type="button"
+                onClick={() => paginate(1)}
+                className="flex h-9 w-9 items-center justify-center border border-bone/20 text-bone/50 transition-all duration-200 hover:border-bone/60 hover:text-bone"
+                aria-label="Next release"
+              >
+                <ChevronRight size={16} strokeWidth={1.5} />
+              </button>
+            </div>
+          )}
+        </div>
       </div>
 
       <StreamingLinksModal
@@ -201,201 +323,12 @@ export function LatestReleases() {
   );
 }
 
-interface ReleaseShowcaseProps {
-  release: Release;
-  index: number;
-  onActivate: () => void;
-  onListen: () => void;
-  onListenEnter: () => void;
-  onListenLeave: () => void;
-  bgY: MotionValue<string>;
-  reduced: boolean;
-}
-
-function ReleaseShowcase({
-  release,
-  index,
-  onActivate,
-  onListen,
-  onListenEnter,
-  onListenLeave,
-  bgY,
-  reduced,
-}: ReleaseShowcaseProps) {
-  const cardRef = useRef<HTMLDivElement>(null);
-
-  const { scrollYProgress } = useScroll({
-    target: cardRef,
-    offset: ['start center', 'end center'],
-  });
-
-  const artScale = useTransform(
-    scrollYProgress,
-    [0, 0.5, 1],
-    [0.92, 1, 0.92],
-  );
-
-  const artRotate = useTransform(
-    scrollYProgress,
-    [0, 0.5, 1],
-    [
-      index % 2 === 0 ? -4 : 4,
-      0,
-      index % 2 === 0 ? 4 : -4,
-    ],
-  );
-
-  const artOpacity = useTransform(
-    scrollYProgress,
-    [0, 0.3, 0.7, 1],
-    [0.4, 1, 1, 0.4],
-  );
-
-  const textY = useTransform(
-    scrollYProgress,
-    [0, 0.5, 1],
-    [60, 0, -60],
-  );
-
-  const isUpcoming = release.status === 'upcoming';
-
-  return (
-    <div
-      ref={cardRef}
-      className="relative min-h-[75svh] w-full overflow-hidden"
-    >
-      {/* Backdrop */}
-      <motion.div
-        style={reduced ? undefined : { y: bgY }}
-        className="absolute inset-0"
-      >
-        <img
-          src={release.backdropImage || release.artwork}
-          alt=""
-          className="h-full w-full scale-110 object-cover opacity-30 grayscale-[20%] blur-2xl"
-        />
-
-        <div className="absolute inset-0 bg-gradient-to-b from-ink via-ink/60 to-ink" />
-      </motion.div>
-
-      {/* Giant title */}
-      <motion.div
-        style={reduced ? {} : { y: textY }}
-        className="pointer-events-none absolute inset-0 flex items-center justify-center"
-      >
-        <h3 className="select-none font-nemoy-black text-[18vw] leading-none tracking-tight text-bone/[0.04] sm:text-[14vw]">
-          {release.title}
-        </h3>
-      </motion.div>
-
-      {/* Content */}
-      <div className="relative mx-auto flex min-h-[75svh] max-w-[1600px] flex-col items-center justify-start gap-10 px-5 pb-20 pt-10 sm:px-8 sm:pt-14 lg:flex-row lg:justify-center lg:gap-16">
-        {/* Artwork */}
-        <motion.div
-          style={
-            reduced
-              ? {}
-              : {
-                  scale: artScale,
-                  rotate: artRotate,
-                  opacity: artOpacity,
-                }
-          }
-          className="relative w-full max-w-sm shrink-0 lg:w-[42%] lg:max-w-md"
-          onViewportEnter={onActivate}
-          viewport={{ margin: '-40% 0px -40% 0px' }}
-        >
-          <div className="group relative aspect-square w-full overflow-hidden">
-            <img
-              src={release.artwork}
-              alt={`${release.title} artwork`}
-              className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
-            />
-
-            <div className="absolute inset-0 bg-gradient-to-t from-ink/40 to-transparent" />
-
-            <div className="absolute left-4 top-4 flex flex-col gap-1">
-              <span className="font-nemoy-thin text-[9px] uppercase tracking-ultra text-bone/70">
-                {release.version}
-              </span>
-            </div>
-
-            {isUpcoming && (
-              <div className="absolute right-4 top-4">
-                <span className="border border-bone/30 bg-ink/60 px-2 py-1 font-nemoy-thin text-[8px] uppercase tracking-ultra text-bone">
-                  coming soon
-                </span>
-              </div>
-            )}
-          </div>
-        </motion.div>
-
-        {/* Info and player */}
-        <div className="flex w-full flex-col lg:w-[50%]">
-          <motion.div
-            initial={reduced ? { opacity: 1 } : { opacity: 0, y: 30 }}
-            whileInView={reduced ? {} : { opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: '-80px' }}
-            transition={{
-              duration: 1,
-              ease: [0.16, 1, 0.3, 1],
-            }}
-          >
-            <div className="grid grid-cols-2 gap-x-8 gap-y-3 border-b border-bone/10 pb-6 sm:grid-cols-3">
-              <MetaItem label="artist" value="KORNER" />
-              <MetaItem label="title" value={release.title} />
-              <MetaItem label="version" value={release.version} />
-              <MetaItem label="bpm" value={release.bpm} />
-              <MetaItem label="duration" value={release.duration} />
-              <MetaItem label="year" value={release.year} />
-            </div>
-
-            <p className="mt-6 max-w-xl font-nemoy-thin text-[15px] leading-[1.9] tracking-[0.04em] text-bone/65 sm:text-[16px]">
-              {release.description}
-            </p>
-
-            {release.previewAudio && (
-              <div className="mt-8">
-                <p className="mb-3 font-nemoy-thin text-[9px] uppercase tracking-ultra text-ash">
-                  preview
-                </p>
-
-                <ReleasePlayer release={release} />
-              </div>
-            )}
-
-            <div className="mt-8 flex flex-wrap items-center gap-3">
-              <button
-                type="button"
-                onClick={onListen}
-                onMouseEnter={onListenEnter}
-                onMouseLeave={onListenLeave}
-                className="group flex items-center gap-2 border border-bone/30 px-6 py-3 font-nemoy-thin text-[11px] uppercase tracking-ultra text-bone transition-all duration-300 hover:bg-bone hover:text-ink"
-              >
-                <Play size={12} strokeWidth={2} />
-                {isUpcoming ? 'PRE-SAVE' : `STREAM ${release.title}`}
-              </button>
-            </div>
-          </motion.div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function MetaItem({
-  label,
-  value,
-}: {
-  label: string;
-  value: string;
-}) {
+function MetaItem({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex flex-col">
       <span className="font-nemoy-thin text-[8px] uppercase tracking-ultra text-ash">
         {label}
       </span>
-
       <span className="font-nemoy-med text-sm uppercase tracking-wide text-bone">
         {value}
       </span>
