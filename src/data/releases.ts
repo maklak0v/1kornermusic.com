@@ -65,7 +65,7 @@ export const releases: Release[] = [
     streaming: [
       {
         platform: 'All Platforms',
-        url: 'https://artists.landr.com/991048270466',
+        url: 'https://artists.landr.com/991048557062',
       },
     ],
   },
