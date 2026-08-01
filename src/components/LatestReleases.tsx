@@ -6,7 +6,7 @@ import {
   AnimatePresence,
   type Variants,
 } from 'framer-motion';
-import { Play, ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { releases } from '@/data/releases';
 import { SectionLabel, FadeIn } from '@/components/SectionLabel';
 import { ReleasePlayer } from '@/components/ReleasePlayer';
@@ -287,9 +287,8 @@ export function LatestReleases() {
                     onClick={() => setStreamingOpen(true)}
                     onMouseEnter={onListenEnter}
                     onMouseLeave={onListenLeave}
-                    className="group flex items-center gap-2 border border-bone/30 px-6 py-3 font-nemoy-thin text-[11px] uppercase tracking-ultra text-bone transition-all duration-300 hover:bg-bone hover:text-ink"
+                    className="group flex items-center gap-2 bg-bone px-6 py-3 font-nemoy-thin text-[11px] uppercase tracking-ultra text-ink transition-all duration-300 hover:bg-bone/80"
                   >
-                    <Play size={12} strokeWidth={2} />
                     {active.status === 'upcoming' ? 'PRE-SAVE' : `STREAM ${active.title}`}
                   </button>
                 </div>
