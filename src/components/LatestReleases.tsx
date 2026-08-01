@@ -357,10 +357,10 @@ export function LatestReleases() {
 function MetaItem({ label, value }: { label: string; value: string }) {
   return (
     <div className="flex flex-col">
-      <span className="font-nemoy-thin text-[8px] uppercase tracking-ultra text-ash">
+      <span className="font-nemoy-thin text-[18px] uppercase tracking-ultra text-ash">
         {label}
       </span>
-      <span className="font-nemoy-med text-sm uppercase tracking-wide text-bone">
+      <span className="font-nemoy-med text-[24px] uppercase tracking-wide text-bone">
         {value}
       </span>
     </div>
