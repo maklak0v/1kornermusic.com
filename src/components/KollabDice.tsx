@@ -36,8 +36,10 @@ export function KollabDice({ compact = false }: { compact?: boolean }) {
         <img
           src="/images/_kollab.dice_logo.png"
           alt="Kollab Dice"
-          className={`w-auto opacity-40 transition-opacity duration-300 group-hover:opacity-80 ${
-            compact ? 'h-12' : 'h-10'
+          className={`w-auto transition-opacity duration-300 ${
+            compact
+              ? 'h-12 opacity-100 group-hover:opacity-70'
+              : 'h-10 opacity-40 group-hover:opacity-80'
           }`}
         />
         {!compact && (
