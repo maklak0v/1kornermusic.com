@@ -159,7 +159,7 @@ export function LatestReleases() {
         <SectionLabel index="02" title="LATEST TRANSMISSION" />
 
         <FadeIn delay={0.1}>
-          <h2 className="mt-6 font-nemoy-black text-[14vw] leading-[0.9] tracking-tight text-bone/95 sm:text-[10vw] md:text-[8vw] lg:text-[7vw]">
+          <h2 className="mt-6 font-nemoy-thin text-[14vw] leading-[0.9] tracking-tight text-bone/95 sm:text-[10vw] md:text-[8vw] lg:text-[7vw]">
             NEW MUSIC
           </h2>
         </FadeIn>
