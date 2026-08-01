@@ -37,7 +37,7 @@ export function KollabDice({ compact = false }: { compact?: boolean }) {
           src="/images/_kollab.dice_logo.png"
           alt="Kollab Dice"
           className={`w-auto opacity-40 transition-opacity duration-300 group-hover:opacity-80 ${
-            compact ? 'h-7' : 'h-10'
+            compact ? 'h-12' : 'h-10'
           }`}
         />
         {!compact && (
