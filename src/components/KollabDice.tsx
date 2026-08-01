@@ -21,7 +21,7 @@ function useLiveTime() {
   return display;
 }
 
-export function KollabDice() {
+export function KollabDice({ showTime = true }: { showTime?: boolean }) {
   const time = useLiveTime();
   const [open, setOpen] = useState(false);
 
@@ -38,9 +38,11 @@ export function KollabDice() {
           alt="Kollab Dice"
           className="h-10 w-auto opacity-40 transition-opacity duration-300 group-hover:opacity-80"
         />
-        <span className="font-nemoy-thin text-[10px] tabular-nums tracking-widest text-bone/40 transition-colors duration-300 group-hover:text-bone/70">
-          {time}
-        </span>
+        {showTime && (
+          <span className="font-nemoy-thin text-[10px] tabular-nums tracking-widest text-bone/40 transition-colors duration-300 group-hover:text-bone/70">
+            {time}
+          </span>
+        )}
       </button>
 
       <AnimatePresence>

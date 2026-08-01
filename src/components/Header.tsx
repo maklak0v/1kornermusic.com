@@ -2,6 +2,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import { useEffect, useMemo, useState } from 'react';
 import { useScrolled } from '@/hooks/useUi';
+import { KollabDice } from '@/components/KollabDice';
 
 const NAV = [
   { label: 'STORY', href: '#story' },
@@ -48,16 +49,21 @@ export function Header() {
       >
         <div className="mx-auto flex max-w-[1250px] items-center justify-between px-6 py-6 sm:px-8 lg:px-10 lg:py-7">
           {/* Logo */}
-          <a
-            href="#top"
-            onClick={(event) => {
-              event.preventDefault();
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-            }}
-            className="font-nemoy-med text-[18px] uppercase tracking-[0.28em] text-bone sm:text-[20px] lg:text-[22px]"
-          >
-            KORNER
-          </a>
+          <div className="flex items-center gap-3 sm:gap-4">
+            <a
+              href="#top"
+              onClick={(event) => {
+                event.preventDefault();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+              className="font-nemoy-med text-[18px] uppercase tracking-[0.28em] text-bone sm:text-[20px] lg:text-[22px]"
+            >
+              KORNER
+            </a>
+            <div className="hidden origin-left scale-[0.45] sm:block">
+              <KollabDice showTime={false} />
+            </div>
+          </div>
 
           {/* Desktop navigation */}
           <nav className="hidden items-center gap-10 lg:flex xl:gap-12">
