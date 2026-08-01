@@ -28,7 +28,7 @@ export function VideoSection() {
   return (
     <section ref={sectionRef} id="video" className="relative overflow-hidden bg-ink-950 py-28 sm:py-36">
       <div className="relative mx-auto max-w-[1600px] px-5 sm:px-8">
-        <SectionLabel index="04" title="TRANSMISSIONS" />
+        <SectionLabel index="05" title="TRANSMISSIONS" />
         <div className="mt-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <FadeIn>
             <motion.h2

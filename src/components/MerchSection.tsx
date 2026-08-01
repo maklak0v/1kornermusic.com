@@ -45,7 +45,7 @@ export function MerchSection() {
       </motion.h2>
 
       <div className="relative mx-auto max-w-[1600px] px-5 sm:px-8">
-        <SectionLabel index="02" title="MERCH" />
+        <SectionLabel index="03" title="MERCH" />
         <div className="mt-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <FadeIn>
             <h2 className="font-nemoy-black text-5xl uppercase leading-none tracking-tight text-bone sm:text-7xl">

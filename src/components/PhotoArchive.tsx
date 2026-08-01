@@ -32,7 +32,7 @@ export function PhotoArchive() {
     <section ref={sectionRef} id="photos" className="relative overflow-hidden bg-ink py-28 sm:py-36">
       {/* Header */}
       <div className="relative mx-auto max-w-[1600px] px-5 sm:px-8">
-        <SectionLabel index="03" title="RECENT MEMORIES" />
+        <SectionLabel index="04" title="RECENT MEMORIES" />
         <div className="mt-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <FadeIn>
             <motion.h2
