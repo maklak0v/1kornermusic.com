@@ -1,6 +1,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Play } from 'lucide-react';
 import type { StreamingLink } from '@/data/releases';
+import { brandIconMap } from '@/components/BrandIcons';
 
 interface StreamingLinksModalProps {
   open: boolean;
@@ -8,16 +9,6 @@ interface StreamingLinksModalProps {
   links: StreamingLink[];
   title: string;
 }
-
-const PLATFORM_ICONS: Record<string, string> = {
-  Spotify: 'SP',
-  'Apple Music': 'AM',
-  'YouTube Music': 'YT',
-  SoundCloud: 'SC',
-  'Amazon Music': 'AZ',
-  TIDAL: 'TD',
-  Deezer: 'DZ',
-};
 
 export function StreamingLinksModal({ open, onClose, links, title }: StreamingLinksModalProps) {
   return (
@@ -68,8 +59,23 @@ export function StreamingLinksModal({ open, onClose, links, title }: StreamingLi
                   className="group flex items-center justify-between border-b border-bone/5 py-3.5 transition-colors hover:bg-bone/[0.03]"
                 >
                   <div className="flex items-center gap-4">
-                    <span className="flex h-7 w-7 items-center justify-center border border-bone/20 font-nemoy-thin text-[9px] uppercase tracking-tight text-bone/50 transition-colors group-hover:border-bone/50 group-hover:text-bone">
-                      {PLATFORM_ICONS[link.platform] || link.platform.slice(0, 2)}
+                    <span className="flex h-9 w-9 items-center justify-center border border-bone/20 text-bone/50 transition-colors group-hover:border-bone/50 group-hover:text-bone">
+                      {(() => {
+                        const Icon = brandIconMap[link.platform];
+                        if (Icon) return <Icon size={20} />;
+                        const platformIconMap: Record<string, string> = {
+                          'All Platforms': 'ALL',
+                          SoundCloud: 'SC',
+                          'Amazon Music': 'AZ',
+                          TIDAL: 'TD',
+                          Deezer: 'DZ',
+                        };
+                        return (
+                          <span className="font-nemoy-thin text-[9px] uppercase tracking-tight">
+                            {platformIconMap[link.platform] || link.platform.slice(0, 2)}
+                          </span>
+                        );
+                      })()}
                     </span>
                     <span className="font-nemoy-thin text-sm uppercase tracking-wide text-bone/70 transition-colors group-hover:text-bone">
                       {link.platform}

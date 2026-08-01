@@ -136,7 +136,7 @@ export function ReleasePlayer({ release }: ReleasePlayerProps) {
           >
             {playing ? <Pause size={14} strokeWidth={1.5} /> : <Play size={14} strokeWidth={1.5} className="ml-0.5" />}
           </button>
-          <span className="timestamp font-nemoy-thin text-[10px] uppercase tracking-wide text-bone/50">
+          <span className="timestamp font-nemoy-thin text-[20px] uppercase tracking-wide text-bone/50">
             {fmt(current)} / {fmt(duration)}
           </span>
         </div>

@@ -274,7 +274,7 @@ export function LatestReleases() {
 
                 {active.previewAudio && (
                   <div className="mt-8">
-                    <p className="mb-3 font-nemoy-thin text-[9px] uppercase tracking-ultra text-ash">
+                    <p className="mb-3 font-nemoy-thin text-[19px] uppercase tracking-ultra text-ash">
                       preview
                     </p>
                     <ReleasePlayer release={active} />

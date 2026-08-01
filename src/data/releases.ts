@@ -42,7 +42,15 @@ export const releases: Release[] = [
     visualizerUrl: '#video',
     streaming: [
       {
-        platform: 'All Platforms',
+        platform: 'Spotify',
+        url: 'https://artists.landr.com/991048270466',
+      },
+      {
+        platform: 'Apple Music',
+        url: 'https://artists.landr.com/991048270466',
+      },
+      {
+        platform: 'YouTube Music',
         url: 'https://artists.landr.com/991048270466',
       },
     ],
@@ -64,7 +72,15 @@ export const releases: Release[] = [
     previewAudio: asset('/audio/de-piano-preview.mp3'),
     streaming: [
       {
-        platform: 'All Platforms',
+        platform: 'Spotify',
+        url: 'https://artists.landr.com/991048557062',
+      },
+      {
+        platform: 'Apple Music',
+        url: 'https://artists.landr.com/991048557062',
+      },
+      {
+        platform: 'YouTube Music',
         url: 'https://artists.landr.com/991048557062',
       },
     ],
