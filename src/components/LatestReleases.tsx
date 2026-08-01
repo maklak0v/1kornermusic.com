@@ -287,7 +287,7 @@ export function LatestReleases() {
                     onClick={() => setStreamingOpen(true)}
                     onMouseEnter={onListenEnter}
                     onMouseLeave={onListenLeave}
-                    className="group flex items-center gap-2 bg-bone px-6 py-3 font-nemoy-thin text-[11px] uppercase tracking-ultra text-ink transition-all duration-300 hover:bg-bone/80"
+                    className="group flex items-center gap-2 bg-bone px-8 py-5 font-nemoy-black text-[15px] uppercase tracking-ultra text-ink transition-all duration-300 hover:bg-bone/80"
                   >
                     {active.status === 'upcoming' ? 'PRE-SAVE' : `STREAM ${active.title}`}
                   </button>
