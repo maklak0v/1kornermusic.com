@@ -141,7 +141,7 @@ export function LatestReleases() {
                   whileInView={reduced ? undefined : 'visible'}
                   variants={reduced ? undefined : chapterVariant}
                   viewport={{ once: true, margin: '-40px' }}
-                  className="mt-6 font-nemoy-thin text-sm uppercase tracking-[0.35em] text-bone/70"
+                  className="mt-6 font-nemoy-thin text-base uppercase tracking-[0.35em] text-bone/90 sm:text-lg"
                 >
                   chapter 01 · the beginning
                 </motion.p>
