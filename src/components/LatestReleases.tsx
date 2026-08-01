@@ -127,9 +127,9 @@ export function LatestReleases() {
                     <motion.span
                       key={i}
                       variants={reduced ? undefined : wordVariant}
-                      className="inline-block"
+                      className="inline-block mr-[0.3em]"
                     >
-                      {word}{' '}
+                      {word}
                     </motion.span>
                   ))}
                 </motion.p>
