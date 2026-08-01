@@ -2,6 +2,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import { useState } from 'react';
 import { useScrolled } from '@/hooks/useUi';
+import { KollabDice } from '@/components/KollabDice';
 
 const NAV = [
   { label: 'STORY', href: '#story' },
@@ -75,8 +76,10 @@ export function Header() {
             ))}
           </nav>
 
-          {/* Sound and mobile menu */}
+          {/* Kollab logo and mobile menu */}
           <div className="flex items-center gap-5 lg:gap-8">
+            <KollabDice compact />
+
             <button
               type="button"
               onClick={() => setMenuOpen(true)}

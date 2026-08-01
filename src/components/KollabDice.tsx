@@ -21,7 +21,7 @@ function useLiveTime() {
   return display;
 }
 
-export function KollabDice() {
+export function KollabDice({ compact = false }: { compact?: boolean }) {
   const time = useLiveTime();
   const [open, setOpen] = useState(false);
 
@@ -36,11 +36,15 @@ export function KollabDice() {
         <img
           src="/images/_kollab.dice_logo.png"
           alt="Kollab Dice"
-          className="h-10 w-auto opacity-40 transition-opacity duration-300 group-hover:opacity-80"
+          className={`w-auto opacity-40 transition-opacity duration-300 group-hover:opacity-80 ${
+            compact ? 'h-7' : 'h-10'
+          }`}
         />
-        <span className="font-nemoy-thin text-[10px] tabular-nums tracking-widest text-bone/40 transition-colors duration-300 group-hover:text-bone/70">
-          {time}
-        </span>
+        {!compact && (
+          <span className="font-nemoy-thin text-[10px] tabular-nums tracking-widest text-bone/40 transition-colors duration-300 group-hover:text-bone/70">
+            {time}
+          </span>
+        )}
       </button>
 
       <AnimatePresence>
