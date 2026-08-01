@@ -17,7 +17,7 @@ export function SectionLabel({ index, title, className = '' }: SectionLabelProps
         whileInView={reduced ? {} : { opacity: 1, x: 0 }}
         viewport={{ once: true, margin: '-100px' }}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        className="font-nemoy-thin text-[15px] uppercase tracking-ultra text-ash"
+        className="font-nemoy-thin text-[25px] uppercase tracking-ultra text-ash"
       >
         {index}
       </motion.span>
