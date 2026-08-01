@@ -29,7 +29,7 @@ export function PhotoArchive() {
         <SectionLabel index="04" title="ART" />
         <div className="mt-6 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
           <FadeIn delay={0.15}>
-            <p className="max-w-xs font-nemoy-med text-[29px] leading-relaxed text-ash">
+            <p className="font-nemoy-med text-[29px] leading-relaxed text-ash sm:whitespace-nowrap">
               moments that never asked to be remembered — but stayed anyway.
             </p>
           </FadeIn>
