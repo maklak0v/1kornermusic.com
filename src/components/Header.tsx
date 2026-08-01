@@ -1,6 +1,6 @@
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
-import { useEffect, useMemo, useState } from 'react';
+import { useState } from 'react';
 import { useScrolled } from '@/hooks/useUi';
 
 const NAV = [
@@ -13,7 +13,6 @@ const NAV = [
 
 export function Header() {
   const scrolled = useScrolled(60);
-  const localTime = useVisitorTime();
   const [menuOpen, setMenuOpen] = useState(false);
 
   const handleNav = (href: string) => {
@@ -76,18 +75,8 @@ export function Header() {
             ))}
           </nav>
 
-          {/* Time, sound and mobile menu */}
+          {/* Sound and mobile menu */}
           <div className="flex items-center gap-5 lg:gap-8">
-            <div className="hidden items-center gap-2.5 lg:flex">
-              <span className="font-nemoy-thin text-[16px] uppercase tracking-[0.14em] text-bone/85 xl:text-[17px]">
-                {localTime.time}
-              </span>
-
-              <span className="font-nemoy-thin text-[12px] uppercase tracking-[0.16em] text-bone/50 xl:text-[13px]">
-                {localTime.timeZone}
-              </span>
-            </div>
-
             <button
               type="button"
               onClick={() => setMenuOpen(true)}
@@ -104,7 +93,6 @@ export function Header() {
         open={menuOpen}
         onClose={() => setMenuOpen(false)}
         onNav={handleNav}
-        localTime={localTime}
       />
     </>
   );
@@ -114,12 +102,10 @@ function MobileMenu({
   open,
   onClose,
   onNav,
-  localTime,
 }: {
   open: boolean;
   onClose: () => void;
   onNav: (href: string) => void;
-  localTime: VisitorTime;
 }) {
   const items: {
     label: string;
@@ -146,15 +132,9 @@ function MobileMenu({
         >
           {/* Mobile top bar */}
           <div className="flex items-center justify-between px-6 py-6">
-            <div className="flex items-center gap-2">
-              <span className="font-nemoy-thin text-[15px] uppercase tracking-[0.14em] text-bone/85">
-                {localTime.time}
-              </span>
-
-              <span className="font-nemoy-thin text-[10px] uppercase tracking-[0.16em] text-bone/50">
-                {localTime.timeZone}
-              </span>
-            </div>
+            <span className="font-nemoy-med text-[15px] uppercase tracking-[0.28em] text-bone">
+              KORNER
+            </span>
 
             <button
               type="button"
@@ -203,60 +183,4 @@ function MobileMenu({
       )}
     </AnimatePresence>
   );
-}
-
-interface VisitorTime {
-  time: string;
-  timeZone: string;
-}
-
-function useVisitorTime(): VisitorTime {
-  const visitorTimeZone = useMemo(() => {
-    try {
-      return Intl.DateTimeFormat().resolvedOptions().timeZone;
-    } catch {
-      return 'UTC';
-    }
-  }, []);
-
-  const [time, setTime] = useState('--:--');
-  const [timeZone, setTimeZone] = useState('');
-
-  useEffect(() => {
-    const updateTime = () => {
-      const now = new Date();
-
-      const formattedTime = new Intl.DateTimeFormat(undefined, {
-        hour: 'numeric',
-        minute: '2-digit',
-        hour12: true,
-      })
-        .format(now)
-        .toUpperCase();
-
-      const parts = new Intl.DateTimeFormat(undefined, {
-        timeZoneName: 'short',
-      }).formatToParts(now);
-
-      const shortZone =
-        parts.find((part) => part.type === 'timeZoneName')?.value ||
-        visitorTimeZone;
-
-      setTime(formattedTime);
-      setTimeZone(shortZone);
-    };
-
-    updateTime();
-
-    const interval = window.setInterval(updateTime, 1000);
-
-    return () => {
-      window.clearInterval(interval);
-    };
-  }, [visitorTimeZone]);
-
-  return {
-    time,
-    timeZone,
-  };
 }
