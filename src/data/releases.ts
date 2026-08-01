@@ -55,8 +55,8 @@ export const releases: Release[] = [
     bpm: '124',
     duration: '04:15',
     status: 'released',
-    artwork: asset('/images/de_piano.webp'),
-    backdropImage: asset('/images/de_piano.webp'),
+    artwork: asset('/images/de-piano-Ready.png'),
+    backdropImage: asset('/images/de-piano-Ready.png'),
     description:
       'de_piano began as a private moment — a late-night piano piece built from silence, memory, and emotion. Minimal, intimate, and raw, it captures the feeling of being alone with thoughts that never really left.',
     releaseDate: '2026.08.01',
