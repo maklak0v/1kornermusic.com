@@ -165,9 +165,9 @@ export function LatestReleases() {
         </FadeIn>
 
         <FadeIn delay={0.2}>
-          <p className="mt-3 max-w-md font-nemoy-thin text-sm leading-relaxed text-ash">
-            every release is another chapter.
-          </p>
+          <p className="mt-4 max-w-xl font-nemoy-thin text-[18px] leading-relaxed tracking-[0.06em] text-ash sm:text-[20px] md:text-[22px]">
+  every release is another chapter.
+</p>
         </FadeIn>
       </div>
 
